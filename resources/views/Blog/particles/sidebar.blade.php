@@ -1,29 +1,24 @@
 
 <div class="layui-col-md2 hack-right">
 
-    <div class="layui-collapse" lay-accordion>
-        <div class="layui-colla-item">
 
-            <h2 class="layui-colla-title">公告</h2>
-            <div class="layui-colla-content layui-show">sdf</div>
-        </div>
+    <blockquote class="layui-elem-quote layui-quote-nm">
+        <h2 class="layui-timeline-title">公告</h2>
+<hr/>
+        hello word
+        关于此博客  欢迎你的加入
+        hello是的法师的法师法师法撒旦法法
+    </blockquote>
+
+
+
+
         <div class="layui-colla-item">
             <h2 class="layui-colla-title">热门文章</h2>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
-            <div class="layui-colla-content layui-show">内容区域</div>
 
+         @foreach($articlehots as $articlehot)
+            <div class="layui-colla-content layui-show">{{$articlehot->title}}</div>
+         @endforeach
 
 
         </div>

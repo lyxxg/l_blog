@@ -22,7 +22,7 @@ class Article extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     function tags(){
-        return $this->belongsToMany(Tag::class,'question_tags');
+        return $this->belongsToMany(Tag::class,'article_tags');
     }
 
     function user(){
@@ -36,5 +36,6 @@ class Article extends Model
     function scopeLast($query){
         return $query->orderBy("created_at",'desc');
     }
+
 
 }

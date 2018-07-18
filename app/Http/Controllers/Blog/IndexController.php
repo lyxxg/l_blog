@@ -23,6 +23,7 @@ class IndexController extends Controller
 
         //焦点图
         $focus = \Redis::get('focus');
+
         if(empty($focus)){
             $focus = Focu::all();
             \Redis::set("focus",$focus);
@@ -32,7 +33,7 @@ class IndexController extends Controller
         //热门文章
         $taghots =Tag::all()->sortByDesc('hot')->take(10);
 
-        return view("Blog.index",compact('articles','focus','taghots'));
+        return view("Blog.article.index",compact('articles','focus','taghots'));
     }
 
     /**
@@ -42,7 +43,9 @@ class IndexController extends Controller
      */
     public function create()
     {
-        //
+
+        return view("Blog.article.create");
+
     }
 
     /**
@@ -64,7 +67,9 @@ class IndexController extends Controller
      */
     public function show($id)
     {
-        //
+        $article=Article::find($id);
+        return view("Blog.article.show",compact('article'));
+
     }
 
     /**

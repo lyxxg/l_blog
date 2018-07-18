@@ -79,6 +79,7 @@ float: right;
 
     .article-content {
         margin-top: 24px;
+        word-break: break-all;
     }
 
     .layui-footer ul>li{
@@ -97,3 +98,19 @@ width: 333px;
     box-shadow: 10px 10px 5px #888888;
     height: 600px;
 }
+
+.article-show{
+min-height:500px;
+}
+
+.article-show .article-content{
+    margin-top: 62px;
+    margin-left: 10%;
+    margin-right: 10%;
+    line-height: 33px;
+    font-family: "微软雅黑";
+}
+
+    .article-show .article-content img{
+        max-width: 95%;
+    }

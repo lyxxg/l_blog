@@ -10,22 +10,40 @@
         <li class="layui-nav-item">
             <a href="">主页</a>
         </li>
+
+        <li class="layui-nav-item">
+            <a href="{{route('create')}}">发帖</a>
+        </li>
+
         <li class="layui-nav-item">
             <a href="">标签</a>
 
             <dl class="layui-nav-child">
+           @foreach($blogtags as $blogtag)
                 <dd><a href="javascript:;">php是世界最好的</a></dd>
-                <dd><a href="javascript:;">c</a></dd>
-                <dd><a href="javascript:;">黑客</a></dd>
+           @endforeach
             </dl>
 
         </li>
+
         <li class="layui-nav-item">
+
+            {{--已登录--}}
+            @if (!Auth::guest())
             <a href=""><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img">我</a>
             <dl class="layui-nav-child">
                 <dd><a href="javascript:;">个人中心</a></dd>
                 <dd><a href="javascript:;">退了</a></dd>
             </dl>
+             @else
+                <a href=""><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img">我</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;">登录</a></dd>
+                    <dd><a href="javascript:;">注册</a></dd>
+                </dl>
+
+            @endif
+
         </li>
 
         <li class="layui-nav-item">

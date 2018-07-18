@@ -10,7 +10,9 @@
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
         "zizaco/entrust": "5.2.x-dev",
-        "predis/predis":"*"
+        "predis/predis":"*",
+        "barryvdh/laravel-debugbar":"*"
+
     },
     "require-dev": {
         "filp/whoops": "^2.0",

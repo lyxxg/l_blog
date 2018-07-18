@@ -11,4 +11,7 @@
 <link rel="stylesheet" href="{{asset('blog/css/layui/css/layui.css')}}" media="all">
 
 <link rel="stylesheet" href="{{asset('blog/css/main.css')}}">
+
+<link rel="stylesheet" href="{{asset('blog/css/pagination.css')}}">
+
 <body>

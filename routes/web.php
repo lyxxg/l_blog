@@ -13,11 +13,16 @@
 
 
 
-
+//文章
 Route::resource('/','Blog\IndexController');
+Route::get("/{id}","Blog\IndexController@show");
+
+
 
 
 Auth::routes();
+
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 
