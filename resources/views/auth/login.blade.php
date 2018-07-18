@@ -17,12 +17,15 @@
                             <div class="col-md-6">
                                 <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
 
-                                @if ($errors->has('email'))
+                                {{dd($errors->has('title'))}}
+                                @if ($errors)
+          @foreach($errors as $error)
                                     <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>{{ $error}}</strong>
                                     </span>
+                               @endforeach
                                 @endif
-                            </div>
+                                      </div>
                         </div>
 
                         <div class="form-group row">

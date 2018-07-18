@@ -93,10 +93,10 @@ color: red;
 width: 333px;
 }
 
-.hacker-login{
- margin-top: 20px;
-    box-shadow: 10px 10px 5px #888888;
-    height: 600px;
+.blog-box{
+    margin-top: 20px;
+
+    box-shadow: 0px 5px 3px 3px  #888888;
 }
 
 .article-show{
@@ -113,4 +113,12 @@ min-height:500px;
 
     .article-show .article-content img{
         max-width: 95%;
+    }
+
+    .blog-center{
+margin-left: 40%;
+    }
+
+    .blog-error{
+        background-color: yellow;
     }

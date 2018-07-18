@@ -15,10 +15,16 @@
 
 //文章
 Route::resource('/','Blog\IndexController');
-Route::get("/{id}","Blog\IndexController@show");
+Route::get('articleshow/{id}','Blog\IndexController@show');
+Route::post('/store',"Blog\IndexController@store");
 
 
+Route::post('/uploadimage',"Blog\IndexController@imageupload");
 
+
+    Route::get("/test",function (){
+       dd("q");
+    });
 
 Auth::routes();
 

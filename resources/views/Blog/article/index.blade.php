@@ -1,6 +1,11 @@
 @extends("Blog.layuots.app")
 @section("content")
 
+    <link rel="stylesheet" href="{{asset('Editor/examples/css/style.css')}}" />
+    <link rel="stylesheet" href="{{asset('Editor/css/editormd.css')}}" />
+    <link rel="stylesheet" href="{{asset('Editor/css/editormd.preview.css')}}" />
+
+
     @include("Blog.particles.focus")
     <div class="article-list">
 
@@ -37,7 +42,7 @@
                 </div>
 
 
-                <div class="view-all layui-btn"><a href="{{route('show',$article->id)}}">查看所有</a></div>
+                <div class="view-all layui-btn"><a href="{{url('articleshow/'.$article->id)}}">查看所有</a></div>
 
 
             </fieldset>
@@ -51,5 +56,4 @@
 <div class="lay"></div>
 {{$articles->links()}}
 @endsection("content")
-
 

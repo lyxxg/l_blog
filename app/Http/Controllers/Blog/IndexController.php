@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Http\Requests\Blog\ArticlePost;
 use App\Models\Article;
+use App\Models\ArticleTag;
 use App\Models\Focu;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class IndexController extends Controller
 {
@@ -54,10 +58,30 @@ class IndexController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ArticlePost $request)
     {
-        //
+        $user_id=Auth::id();
+        $user_id=1;
+        $data=$request->all();
+        $data['user_id']=$user_id;
+        $article = Article::create($data);
+
+        if($article) {
+            //添加标签和问题关联表
+        foreach ($request->tag_id as $v) {
+            $qt = new ArticleTag();
+            $qt->article_id = $article->id;
+            $qt->tag_id = $v;
+            $qt->save();
+        }
+        }else{
+            return back()->withErrors('文章添加失败');
+        }
+
+        return redirect('/');
+
     }
+
 
     /**
      * Display the specified resource.
@@ -105,4 +129,25 @@ class IndexController extends Controller
     {
         //
     }
+
+    public function imageupload(Request $request)
+    {
+
+        $message='';
+            $url=$request->file('editormd-image-file')->store('avatar');
+
+     //   $url = Storage::putFile('avatars', $request->file('editormd-image-file'));
+       $url=env('APP_URL').Storage::url($url);
+
+        $data = array(
+            'success' => empty($message) ? 1 : 0,  //1：上传成功  0：上传失败
+            'message' => $message,
+            'url' => !empty($url) ? $url : ''
+        );
+
+        header('Content-Type:application/json;charset=utf8');
+        exit(json_encode($data));
+
+    }
+
 }
