@@ -69,12 +69,15 @@ class IndexController extends Controller
         $data['user_id']=$user_id;
         //DB::beginTransaction();//真想换成innodb
 
-$tags=$request->tag_id;
-if(!empty($tags)){
-    $article = Article::create($data);
-}else{
-    return back()->withErrors('为选择标签');
-}
+
+        $tags=$request->tag_id;
+
+        if(!empty($tags))
+        $article = Article::create($data);
+        else
+        return back()->withErrors('为选择标签');
+
+
         if($article) {
 
             //添加标签和问题关联表
@@ -84,7 +87,7 @@ if(!empty($tags)){
             $qt->tag_id = $v;
             $qt->save();
         }
-        }else{
+       }else{
             return back()->withErrors('文章添加失败');
         }
 

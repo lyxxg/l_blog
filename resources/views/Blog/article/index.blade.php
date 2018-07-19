@@ -24,9 +24,6 @@
 @extends("Blog.layuots.app")
 @section("content")
 
-    <link rel="stylesheet" href="{{asset('Editor/examples/css/style.css')}}" />
-    <link rel="stylesheet" href="{{asset('Editor/css/editormd.css')}}" />
-    <link rel="stylesheet" href="{{asset('Editor/css/editormd.preview.css')}}" />
 
 
     @include("Blog.particles.focus")

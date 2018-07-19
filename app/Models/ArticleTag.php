@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 class ArticleTag extends Model
 {
     public $timestamps = false;
-    function question(){
-        return $this->belongsTo(Question::class);
+
+    function article()
+    {
+        return $this->belongsTo(Article::class);
     }
 
-    function tag(){
+
+    function tag()
+    {
         return $this->belongsTo(Tag::class);
-}
+    }
 
 }

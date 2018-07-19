@@ -13,18 +13,22 @@
 
 
 
-//文章
-Route::resource('/','Blog\IndexController');
-Route::get('articleshow/{id}','Blog\IndexController@show');
-Route::post('/store',"Blog\IndexController@store");
+//前台
+Route::group(['namespace'=>'Blog'],function () {
 
+    //文章
+    Route::resource('/', 'IndexController');
+    Route::get('articleshow/{id}', 'IndexController@show');
+    Route::post('/store', "IndexController@store");
 
-Route::post('/uploadimage',"Blog\IndexController@imageupload");
+    //标签
+    Route::resource("tag", "TagController");
 
+    //editor.md图片上传
+    Route::post('/uploadimage', "IndexController@imageupload");
 
-    Route::get("/test",function (){
-       dd("q");
-    });
+});
+
 
 Auth::routes();
 

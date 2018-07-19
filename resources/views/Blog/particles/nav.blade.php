@@ -20,7 +20,7 @@
 
             <dl class="layui-nav-child">
            @foreach($blogtags as $blogtag)
-                <dd><a href="javascript:;">php是世界最好的</a></dd>
+                <dd><a href="{{route('tag.show',$blogtag->id)}}">php是世界最好的</a></dd>
            @endforeach
             </dl>
 
