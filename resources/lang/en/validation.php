@@ -143,4 +143,5 @@ return [
 
     'attributes' => [],
 
+    'arrnull'=>'数组是空的',
 ];

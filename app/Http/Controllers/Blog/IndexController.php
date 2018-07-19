@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use function PHPSTORM_META\type;
 
 class IndexController extends Controller
 {
@@ -60,15 +61,24 @@ class IndexController extends Controller
      */
     public function store(ArticlePost $request)
     {
+
+
         $user_id=Auth::id();
         $user_id=1;
         $data=$request->all();
         $data['user_id']=$user_id;
-        $article = Article::create($data);
+        //DB::beginTransaction();//真想换成innodb
 
+$tags=$request->tag_id;
+if(!empty($tags)){
+    $article = Article::create($data);
+}else{
+    return back()->withErrors('为选择标签');
+}
         if($article) {
+
             //添加标签和问题关联表
-        foreach ($request->tag_id as $v) {
+        foreach ($tags as $v) {
             $qt = new ArticleTag();
             $qt->article_id = $article->id;
             $qt->tag_id = $v;

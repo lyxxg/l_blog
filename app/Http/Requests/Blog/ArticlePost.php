@@ -3,7 +3,6 @@
 namespace App\Http\Requests\Blog;
 
 use Illuminate\Foundation\Http\FormRequest;
-
 class ArticlePost extends FormRequest
 {
     /**
@@ -23,10 +22,13 @@ class ArticlePost extends FormRequest
      */
     public function rules()
     {
+        //是否是空  验证标签
         return [
+
             'title'=>'min:3|max:50|required',
             'content'=>'min:3|max:9999|required',
-            'tag_id.*'=>'exists:tags,id|null',
+            'tag_id.*'=>'exists:tags,id|arrnull',
+            //无语。。
 
         ];
     }
@@ -43,7 +45,7 @@ class ArticlePost extends FormRequest
             'content.min'=>"内容至少三个字符",
             'content.max'=>"超出最大范围9999",
 
-            'tag_id.*.exists:tags,id'=>"你别搞事情啊",
+            '(tag_id.*).exists:tags,id'=>"你别搞事情啊",
             'tag_id.*.required'=>'标签不能为空'
         ];
     }

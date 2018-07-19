@@ -162,7 +162,7 @@ return [
         Zizaco\Entrust\EntrustServiceProvider::class,
         App\Providers\PaginationServiceProvider::class,
         App\Providers\BlogServiceProvider::class,
-
+        App\Providers\RulesServiceProvider::class,
     ],
 
     /*
