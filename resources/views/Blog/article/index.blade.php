@@ -1,3 +1,26 @@
+
+<link href="{{asset('Editor/css/editormd.css')}}" rel="stylesheet" />
+<script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
+<script src="{{asset('Editor/lib/marked.min.js')}}"></script>
+<script src="{{asset('Editor/lib/prettify.min.js')}}"></script>
+<script src="{{asset('Editor/lib/raphael.min.js')}}"></script>
+<script src="{{asset('Editor/lib/underscore.min.js')}}"></script>
+<script src="{{asset('Editor/lib/sequence-diagram.min.js')}}"></script>
+<script src="{{asset('Editor/lib/flowchart.min.js')}}"></script>
+<script src="{{asset('Editor/lib/jquery.flowchart.min.js')}}"></script>
+<script src="{{asset('Editor/editormd.js')}}"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        var wordsView;
+        wordsView = editormd.markdownToHTML("showMD", {
+            htmlDecode: false,  // you can filter tags decode
+            emoji: true,
+            taskList: true
+        });
+    })
+</script>
+<!--editor.md展示需要引入的  真tm多。。-->
+
 @extends("Blog.layuots.app")
 @section("content")
 
@@ -38,7 +61,10 @@
                 </div>
 
                 <div class="layui-field-box article-content">
-{!!$article->content!!}
+                    <div id="showMD">
+                        <textarea style="display:none;" name="editormd-markdown-doc">
+{!!$article->content!!}</textarea>
+                    </div>
                 </div>
 
 

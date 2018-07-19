@@ -26,7 +26,7 @@ class ArticlePost extends FormRequest
         return [
             'title'=>'min:3|max:50|required',
             'content'=>'min:3|max:9999|required',
-            'tag_id.*'=>'exists:tags,id|required',
+            'tag_id.*'=>'exists:tags,id|null',
 
         ];
     }
