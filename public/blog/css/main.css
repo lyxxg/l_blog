@@ -95,8 +95,14 @@ width: 333px;
 
 .blog-box{
     margin-top: 20px;
-
     box-shadow: 0px 5px 3px 3px  #888888;
+}
+.blog-box2
+{
+    margin-top: 20px;
+    box-shadow: 0px 5px 3px 3px  yellow ;
+    text-align: center;
+
 }
 
 .article-show{
@@ -121,4 +127,32 @@ margin-left: 40%;
 
     .blog-error{
         background-color: yellow;
+    }
+    .blog-avatar img{
+        margin-top: 2%;
+        width: 150px;
+        height: 150px;
+        border-radius: 5000px;
+        border: 3px deepskyblue solid;
+        padding: 1px ;
+
+    }
+    .blog-avatar img:hover{
+        border-radius: 5000px;
+        border: 3px green solid;
+        box-shadow: 0px 0px 1px 1px  green;
+    }
+
+    .blog-user-btn:hover{
+        border-radius: 5554px;
+     }
+    .blog-sex{
+        font-size: 35px;padding: 25px;
+    }
+
+    .blog-mtop{
+        margin-top: 20px;
+    }
+    .blog-mbuttom{
+        margin-buttom: 20px;
     }

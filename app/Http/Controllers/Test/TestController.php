@@ -1,24 +1,30 @@
 <?php
 
-namespace App\Http\Controllers\Blog;
+namespace App\Http\Controllers\Test;
 
-use App\Models\ArticleTag;
-use App\Models\Tag;
+use  Blog;
+use App\Events\DXEvent;
+use App\Services\TokenManageService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use function PHPSTORM_META\type;
 
-class TagController extends Controller
+class TestController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     * 标签控制器
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $res = Blog::getSex(1);
+        echo $res;
+
+        //  $res = TokenManage::getToken('Hello World');
+       // dd($res);
+   //    dd(event(new DXEvent($request)));
     }
 
     /**
@@ -48,14 +54,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //标签展示
-    public function show($tag_id)
+    public function show($id)
     {
-        //查找所有属于这个标签的文章
-       $tags=ArticleTag::Where('tag_id',$tag_id)->paginate(10);
-
-       return view('Blog.tag.show',compact('tags'));
-
+        //
     }
 
     /**

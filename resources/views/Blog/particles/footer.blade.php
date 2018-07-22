@@ -1,4 +1,4 @@
-<div class="layui-footer">
+<div class="layui-footer blog-footer">
 
     <ul class="layui-nav">
 

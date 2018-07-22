@@ -150,7 +150,7 @@ class IndexController extends Controller
             $url=$request->file('editormd-image-file')->store('avatar');
 
      //   $url = Storage::putFile('avatars', $request->file('editormd-image-file'));
-       $url=env('APP_URL').Storage::url($url);
+       $url=Storage::url($url);
 
         $data = array(
             'success' => empty($message) ? 1 : 0,  //1：上传成功  0：上传失败

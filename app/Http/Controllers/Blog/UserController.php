@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers\Blog;
 
-use App\Models\ArticleTag;
-use App\Models\Tag;
+use App\Http\Requests\Blog\UserUpdate;
+use App\Models\User;
+use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use function Sodium\compare;
 
-class TagController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     * 标签控制器
      */
     public function index()
     {
@@ -48,14 +49,10 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //标签展示
-    public function show($tag_id)
+    public function show(User $user)
     {
-        //查找所有属于这个标签的文章
-       $tags=ArticleTag::Where('tag_id',$tag_id)->paginate(10);
 
-       return view('Blog.tag.show',compact('tags'));
-
+        return view("Blog.user.show",compact('user'));
     }
 
     /**
@@ -64,9 +61,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+    return view("Blog.User.edit",compact('user'));
     }
 
     /**
@@ -76,9 +73,26 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdate $request, $id)
     {
-        //
+
+
+        $user_id=Auth::id();
+
+        $sex=$request->sex;
+        $description=$request->desc;
+
+         UserInfo::where('user_id',$user_id)
+            ->update
+            (['sex'=>$sex,'nick'=>$request->nick,'description'=>$description]);
+
+        if(!empty($request->file('avatar'))) {
+            UserInfo::where('user_id',$user_id)
+                ->update(['avatar'=>$request->file('avatar')->store('avatar')]);
+        }
+
+    return redirect()-> route('user.show',$user_id);
+
     }
 
     /**

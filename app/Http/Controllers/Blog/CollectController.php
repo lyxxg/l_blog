@@ -2,19 +2,15 @@
 
 namespace App\Http\Controllers\Blog;
 
-use App\Models\ArticleTag;
-use App\Models\Tag;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
 
-class TagController extends Controller
+class CollectController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     * 标签控制器
      */
     public function index()
     {
@@ -48,14 +44,9 @@ class TagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    //标签展示
-    public function show($tag_id)
+    public function show($id)
     {
-        //查找所有属于这个标签的文章
-       $tags=ArticleTag::Where('tag_id',$tag_id)->paginate(10);
-
-       return view('Blog.tag.show',compact('tags'));
-
+  dd($id);
     }
 
     /**

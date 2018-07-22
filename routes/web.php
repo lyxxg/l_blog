@@ -13,10 +13,22 @@
 
 
 
+
+
+Route::resource("test","Test\TestController");
+
 //前台
 Route::group(['namespace'=>'Blog'],function () {
 
-    //文章
+
+    //历史文章
+    Route::resource("history","HistoryController");
+
+
+    Route::post("search","SearchController@search")
+        ->name("search");
+
+    //文章 主页
     Route::resource('/', 'IndexController');
     Route::get('articleshow/{id}', 'IndexController@show');
     Route::post('/store', "IndexController@store");
@@ -24,8 +36,14 @@ Route::group(['namespace'=>'Blog'],function () {
     //标签
     Route::resource("tag", "TagController");
 
+    //用户个人中心
+    Route::resource("user","UserController");
+
+
+
     //editor.md图片上传
     Route::post('/uploadimage', "IndexController@imageupload");
+
 
 });
 

@@ -11,7 +11,7 @@
                 <col width="150">
             </colgroup>
             <thead>
-            <div class="layui-layer-title center-block">php是世界最好的语言</div>
+            <div class="layui-layer-title center-block">{{$tags[0]->tag->name}}</div>
 
             <tr>
                 <th>文章标题</th>
@@ -24,8 +24,8 @@
             @foreach($tags as $tag)
             <tr>
                 <td>{{$tag->article->title}}</td>
-                <td>2016-11-29</td>
-                <td>人生就像是一场修行</td>
+                <td>{{$tag->tag->name}}</td>
+                <td>{{$tag->article->created_at}}</td>
             </tr>
 
                 @endforeach
@@ -33,5 +33,6 @@
         </table>
 
     </div>
+    {{$tags->links()}}
 
 @endsection

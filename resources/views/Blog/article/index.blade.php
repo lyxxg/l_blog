@@ -25,10 +25,8 @@
 @section("content")
 
 
-
     @include("Blog.particles.focus")
     <div class="article-list">
-
 
 
         @foreach($articles as $article)
