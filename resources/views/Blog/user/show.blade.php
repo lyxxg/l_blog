@@ -22,8 +22,7 @@
     <div class="layui-btn-container">
         <a href="{{route('user.edit',$user->id)}}"><button class="layui-btn blog-user-btn">编辑</button></a>
         <a href="{{route('history.show',$user->id)}}"><button class="layui-btn blog-user-btn">历史</button></a>
-        <button class="layui-btn blog-user-btn">收藏</button>
-
+        <a href="{{route('collect.show',$user->id)}}"><button class="layui-btn blog-user-btn">收藏</button></a>
         <button class="layui-btn blog-user-btn">粉丝</button>
 
     </div>

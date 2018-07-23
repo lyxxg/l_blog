@@ -156,3 +156,19 @@ margin-left: 40%;
     .blog-mbuttom{
         margin-buttom: 20px;
     }
+
+    .blog-shrink img{
+      width:200px;
+      border-radius: 2px;
+      border: 1px solid grey;
+       }
+    .blog-shrink img:hover{
+
+        transform:rotate(7deg);
+        -ms-transform:rotate(7deg); 	/* IE 9 */
+        -moz-transform:rotate(7deg); 	/* Firefox */
+        -webkit-transform:rotate(7deg); /* Safari 和 Chrome */
+        -o-transform:rotate(7deg); 	/* Opera */
+
+
+    }

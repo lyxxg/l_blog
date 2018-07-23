@@ -18,6 +18,9 @@
         });
     })
 </script>
+<!--editor.md展示需要引入的  真tm多。。-->
+
+
 @extends("Blog.layuots.app")
 @section("content")
     <div class="article-list">
@@ -50,11 +53,11 @@
 
                 <div class="layui-field-box article-content">
                     <div class="layui-field-box article-content">
-                        <div id="showMD">
-                        <textarea style="display:none;" name="editormd-markdown-doc">
-                    {!!$article->content!!}
-                        </textarea></div></div>
-                </div>
+                            <div id="showMD">
+                     <textarea style="display:none;" name="editormd-markdown-doc">
+{!!$article->content!!}</textarea>
+                            </div></div>
+                 </div>
 
             </fieldset>
             <hr class="layui-bg-blue">

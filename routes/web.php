@@ -20,6 +20,8 @@ Route::resource("test","Test\TestController");
 //前台
 Route::group(['namespace'=>'Blog'],function () {
 
+    //收藏
+    Route::resource("collect","CollectController");
 
     //历史文章
     Route::resource("history","HistoryController");

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Models\Collection;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -46,7 +47,9 @@ class CollectController extends Controller
      */
     public function show($id)
     {
-  dd($id);
+
+        $collects=Collection::Where('user_id',$id);
+        return view("Blog.collect.show",compact('collects'));
     }
 
     /**

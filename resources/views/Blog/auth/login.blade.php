@@ -87,7 +87,7 @@
     <script>
 
         var myCaptcha = _dx.Captcha(document.getElementById('c1'), {
-            appId: '9eb369e65c776c2f3bfaef1d944b3e2a',   //appId,开通服务后可在控制台中“服务管理”模块获取
+            appId: '7a7ec5a8e7b80be8ee4e4689cce4e4da',   //appId,开通服务后可在控制台中“服务管理”模块获取
             success: function (DXtoken) {
                 document.getElementById("BlogToken").value=DXtoken;
             }

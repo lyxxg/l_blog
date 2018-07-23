@@ -55,7 +55,7 @@
 
                 </div>
 
-                <div class="layui-field-box article-content">
+                <div class="layui-field-box article-content blog-shrink">
                     <div id="showMD">
                         <textarea style="display:none;" name="editormd-markdown-doc">
 {!!$article->content!!}</textarea>
