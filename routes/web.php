@@ -47,6 +47,10 @@ Route::group(['namespace'=>'Blog'],function () {
     Route::post('/uploadimage', "IndexController@imageupload");
 
 
+    //答案
+     Route::resource("answer","AnswerController");
+
+
 });
 
 

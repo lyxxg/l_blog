@@ -16,11 +16,11 @@ class CreateCollectionsTable extends Migration
         Schema::create('collections', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger("user_id");
-            $table->unsignedInteger("question_id");
+            $table->unsignedInteger("article_id");
             $table->timestamps();
 
             $table->foreign("user_id")->references("id")->on("users");
-       //     $table->foreign("question_id")->references("id")->on("article");
+       //     $table->foreign("article_id")->references("id")->on("article");
 
         });
     }

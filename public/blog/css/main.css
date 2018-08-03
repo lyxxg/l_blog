@@ -1,96 +1,96 @@
-    .clear-f:after,
-    .clear-f:before{
-        content:" ";
-        display:block;
-        clear:both;
-    }
+.clear-f:after,
+.clear-f:before{
+    content:" ";
+    display:block;
+    clear:both;
+}
 
 
-    #focus>div{
+#focus>div{
     display: block;
-        height: 300px;
-    }
+    height: 300px;
+}
 
-    .hack-right{
-        padding: 0 12px;
-        margin-top: 22px;
-    }
-    .article-list .item:first-child,#focus{
+.hack-right{
+    padding: 0 12px;
+    margin-top: 22px;
+}
+.article-list .item:first-child,#focus{
     margin-top: 2%;
-    }
+}
 
 
 
-    .navbar ul>li{
+.navbar ul>li{
     margin-left: 50px;
-        }
+}
 
 
-    .navbar .layui-nav .login{
-float: right;
-       }
+.navbar .layui-nav .login{
+    float: right;
+}
 
 
-    .to-mune{
-        margin-left:80%;
-        clear: none;
-        display: block;
-        text-align: center;
+.to-mune{
+    margin-left:80%;
+    clear: none;
+    display: block;
+    text-align: center;
+    display: none;
+}
+
+
+/*moblie style*/
+@media (max-width: 480px){
+    .navbar .layui-nav li{
+        clear: both;
         display: none;
     }
+    .to-mune{
+        display: block;
+        padding: 20px 12px;
+    }
 
-
-    /*moblie style*/
-    @media (max-width: 480px){
-        .navbar .layui-nav li{
-            clear: both;
-            display: none;
-        }
-        .to-mune{
-            display: block;
-            padding: 20px 12px;
-        }
-
-        #to-mune:checked~li{
-            display: block;
-
-           }
-
-        .navbar .layui-nav  .login,register{
-            display: block;
-            float: left;
-        }
-
-
-        .captch {
-            float: right;
-        }
+    #to-mune:checked~li{
+        display: block;
 
     }
+
+    .navbar .layui-nav  .login,register{
+        display: block;
+        float: left;
+    }
+
+
+    .captch {
+        float: right;
+    }
+
+}
 
 /*mobile end*/
 
 
 
-    .view-all{
-        margin-top: 21px;
+.view-all{
+    margin-top: 21px;
 
-    }
+}
 
-    .article-content {
-        margin-top: 24px;
-        word-break: break-all;
-    }
+.article-content {
+    margin-top: 24px;
+    word-break: break-all;
+}
 
-    .layui-footer ul>li{
-        margin-left: 0%;
-    }
+.layui-footer ul>li{
+    margin-left: 0%;
+}
 
 
-    /*nav seach*/
+/*nav seach*/
 #hacker-search{
-color: red;
-width: 333px;
+    color: red;
+    width: 333px;
 }
 
 .blog-box{
@@ -106,7 +106,7 @@ width: 333px;
 }
 
 .article-show{
-min-height:500px;
+    min-height:500px;
 }
 
 .article-show .article-content{
@@ -117,58 +117,69 @@ min-height:500px;
     font-family: "微软雅黑";
 }
 
-    .article-show .article-content img{
-        max-width: 95%;
-    }
+.article-show .article-content img{
+    max-width: 95%;
+}
 
-    .blog-center{
-margin-left: 40%;
-    }
+.blog-center{
+    margin-left: 40%;
+}
 
-    .blog-error{
-        background-color: yellow;
-    }
-    .blog-avatar img{
-        margin-top: 2%;
-        width: 150px;
-        height: 150px;
-        border-radius: 5000px;
-        border: 3px deepskyblue solid;
-        padding: 1px ;
+.blog-error{
+    background-color: yellow;
+}
+.blog-avatar img{
+    margin-top: 2%;
+    width: 150px;
+    height: 150px;
+    border-radius: 5000px;
+    border: 3px deepskyblue solid;
+    padding: 1px ;
 
-    }
-    .blog-avatar img:hover{
-        border-radius: 5000px;
-        border: 3px green solid;
-        box-shadow: 0px 0px 1px 1px  green;
-    }
+}
+.blog-avatar img:hover{
+    border-radius: 5000px;
+    border: 3px green solid;
+    box-shadow: 0px 0px 1px 1px  green;
+}
 
-    .blog-user-btn:hover{
-        border-radius: 5554px;
-     }
-    .blog-sex{
-        font-size: 35px;padding: 25px;
-    }
+.blog-user-btn:hover{
+    border-radius: 5554px;
+}
+.blog-sex{
+    font-size: 35px;padding: 25px;
+}
 
-    .blog-mtop{
-        margin-top: 20px;
-    }
-    .blog-mbuttom{
-        margin-buttom: 20px;
-    }
+.blog-mtop{
+    margin-top: 20px;
+}
+.blog-mbuttom{
+    margin-buttom: 20px;
+}
 
-    .blog-shrink img{
-      width:200px;
-      border-radius: 2px;
-      border: 1px solid grey;
-       }
-    .blog-shrink img:hover{
+.blog-shrink img{
+    width:200px;
+    border-radius: 2px;
+    border: 1px solid grey;
+}
+.blog-shrink img:hover{
 
-        transform:rotate(7deg);
-        -ms-transform:rotate(7deg); 	/* IE 9 */
-        -moz-transform:rotate(7deg); 	/* Firefox */
-        -webkit-transform:rotate(7deg); /* Safari 和 Chrome */
-        -o-transform:rotate(7deg); 	/* Opera */
+    transform:rotate(7deg);
+    -ms-transform:rotate(7deg); 	/* IE 9 */
+    -moz-transform:rotate(7deg); 	/* Firefox */
+    -webkit-transform:rotate(7deg); /* Safari 和 Chrome */
+    -o-transform:rotate(7deg); 	/* Opera */
 
 
-    }
+}
+
+
+
+
+
+/*
+comment*
+ */
+.comment{
+    margin-top: 10px;
+}

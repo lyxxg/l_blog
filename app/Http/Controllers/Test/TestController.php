@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Test;
 
+use App\Models\Collection;
 use  Blog;
 use App\Events\DXEvent;
 use App\Services\TokenManageService;
@@ -19,8 +20,27 @@ class TestController extends Controller
     public function index(Request $request)
     {
 
-        $res = Blog::getSex(1);
-        echo $res;
+
+
+        $dataArr=array(
+            'code'=>0,
+            'data'=>'',
+            'msg'=>'收藏成功'
+        );
+
+        return json_encode($dataArr);
+
+
+
+        $collect=new Collection();
+        $result=$collect->Where('user_id',1)->Where('article_id',49)->get();
+        if(empty($result->first())){
+   dd("bull") ;
+        }
+        dd($result);
+       // dd($res);
+            $res = Blog::getSex(1);
+        //echo $res;
 
         //  $res = TokenManage::getToken('Hello World');
        // dd($res);

@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Collection extends Model
 {
-    function question(){
-   return $this->belongsTo(Question::class);
+    function article(){
+   return $this->belongsTo(Article::class);
     }
 
 }

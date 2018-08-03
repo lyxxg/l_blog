@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Blog;
 use App\Http\Requests\Blog\ArticlePost;
 use App\Models\Article;
 use App\Models\ArticleTag;
+use App\Models\Collection;
 use App\Models\Focu;
 use App\Models\Tag;
 use Illuminate\Http\Request;
@@ -104,8 +105,27 @@ class IndexController extends Controller
      */
     public function show($id)
     {
+
+        $auth_id=Auth::id();
+
+        //是否是收藏 and 是否是作者  是为1
+        $Mdata=array(
+            'collect'=>0,
+            'is'=>0,
+        );
+        $Mdata['collect']=Collection::Where('user_id',$auth_id)->Where('article_id',$id)->get();
+        if(empty($Mdata['collect']->first())){
+            $Mdata['collect']=0;
+        }
+
         $article=Article::find($id);
-        return view("Blog.article.show",compact('article'));
+
+        if($auth_id==$article->user_id){
+            $Mdata['is']=1;
+        }
+
+
+        return view("Blog.article.show",compact('article','Mdata'));
 
     }
 
@@ -147,7 +167,7 @@ class IndexController extends Controller
     {
 
         $message='';
-            $url=$request->file('editormd-image-file')->store('avatar');
+        $url=$request->file('editormd-image-file')->store('avatar');
 
      //   $url = Storage::putFile('avatars', $request->file('editormd-image-file'));
        $url=Storage::url($url);

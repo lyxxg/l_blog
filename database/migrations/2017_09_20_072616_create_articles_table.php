@@ -24,7 +24,7 @@ class CreateArticlesTable extends Migration
             $table->unsignedInteger("follow")->nullable()->default(0)->comment("关注量");
             $table->unsignedInteger("collection")->nullable()->default(0)->comment("收藏量");
             $table->unsignedInteger("answer")->nullable()->default(0)->comment("回答数");
-            $table->tinyInteger("status")->nullable()->default(0)->comment("0：表示未解决，1：表示已解决，默认未解决");
+            $table->tinyInteger("accept")->nullable()->default(0)->comment("0：表示未解决，不为0则存储被采纳的答案的id");
             $table->tinyInteger("del")->index()->nullable()->default(0)->comment("0表示未撤销   1表示撤销");
             $table->timestamps();
             $table->softDeletes();

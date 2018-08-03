@@ -19,8 +19,7 @@ class BlogServiceProvider extends ServiceProvider
     {
 
        //公告
-
-        $announcement=\Redis::get("announcement");
+       $announcement=\Redis::get("announcement");
         if(empty($announcement)) {
         $announcement = Announcement::all()->last();
         \Redis::set("announcement", $announcement);
@@ -52,8 +51,6 @@ class BlogServiceProvider extends ServiceProvider
                         view()->share("blogtags",$blogtags);
                         view()->share('announcement',$announcement);
                         view()->share('articlehots',$articlehots);
-
-
     }
 
     /**
