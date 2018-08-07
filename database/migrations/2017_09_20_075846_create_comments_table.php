@@ -15,7 +15,7 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->increments('id');
-            $table->boolean("belog")->comment("1表示是回答  0表示是评论");
+            $table->boolean("belog")->comment("1表示是评论 0表示是回复");
             $table->unsignedInteger("answer_id")->comment("被评论的回答的编号");
             $table->unsignedInteger("user_id")->comment("评论者用户编号");
             $table->unsignedInteger("comment_id")->comment("被评论的评论id");

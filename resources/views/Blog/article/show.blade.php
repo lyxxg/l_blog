@@ -86,7 +86,7 @@
 
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="formDemo">评论</button>
+                        <button class="layui-btn" lay-submit lay-filter="formDemo">回答</button>
                     </div>
                 </div>
 
@@ -126,7 +126,7 @@
 
 
 
-                            <button class="layui-btn-sm layui-btn "  onclick="answer_reply(this)" data-answer-id="{{$answer->id}}" data-answer-id={{$answer->id}} data-typearticle="comment"  data-belog="1"> 回复</button>
+                            <button class="layui-btn-sm layui-btn "  onclick="answer_reply(this)" data-answer-id="{{$answer->id}}" data-answer-id={{$answer->id}} data-typearticle="comment"  data-belog="1"> 评论</button>
 
                     </div>
 
@@ -148,10 +148,18 @@
                             <div class="layui-col-md2">
 
 
-                                <button class="layui-btn-sm layui-btn "  onclick="answer_reply(this)" data-answer-id="{{$answer->id}}" data-answer-id={{$answer->id}} data-typearticle="comment"  data-belog="1"> 回复</button>
+                                <button class="layui-btn-sm layui-btn "  onclick="answer_reply(this)" data-answer-id="{{$answer->id}}"  data-comment-id="{{$comment->id}}" data-answer-id={{$answer->id}} data-typearticle="comment"  data-belog="0"> 回复</button>
 
                             </div>
+                            @if($comment->belog==1)
                             {!! $comment->comment !!}
+                            @else
+                            {!!"<span style='color:green'>回复</span>".$comment->fathercomment->user->info->nick!!}:
+
+                            {!!$comment->comment!!}
+
+
+                            @endif
                         </div>
 
 
@@ -171,13 +179,12 @@
 
 
     </div>
-
+    <input type="hidden" value="{{Auth::user()->info->nick}}" id="nickname">
     <script src="{{asset('blog/css/layui/lay/modules/layer.js')}}"></script>
 
     <script>
         var csrf_token=$("#collect_token").val();
-
-
+        nickname=$("#nickname").val();
         function answer_reply(obj)
         {
 
@@ -212,35 +219,46 @@
 
                     switch (data.code) {
 
-                        case 0:{
+                    case 0:{
+                        var replyhtml='';
+                        //alert(typeof (data.data.belog));   string类型
+                        data.data.belog=parseInt(data.data.belog);
+                        if(!data.data.belog){//回复
+                        replyhtml+='<span style="color:green">回复</span>'+data.data.user+':';
+                        }
+                        var html='';
+                        html+=
+                            '<hr/><hr/>'
+                            +'<div class="item">'
+                            +'<div class="layui-col-md10">'+
+                            '<span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>'
+                            +'<i class="layui-icon layui-icon-username"></i>'
+                                +nickname
+                            +data.data.created_at
+                            +'<i class="layui-icon layui-icon-date"></i>'
 
-                            var html='';
-                            html+=
-                                '<hr/><hr/>'
-                                +'<div class="item">'
-                                +'<div class="layui-col-md10">'+
-                                '<span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>'
-                                +'<i class="layui-icon layui-icon-username"></i>'
-                                +data.data.created_at
-                                +'<i class="layui-icon layui-icon-date"></i>'
-                                +data.data.created_at
-                                +'</div>'
-                                +'<div class="layui-col-md2">'+
-                                '<button class="layui-btn-sm layui-btn "  onclick="answer_reply(this)" data-answer-id="data.data.id" data-answer-id=data.data.id data-typearticle="comment"  data-belog="1"> 回复</button>'
-                                 +
-                                '</div>'+
-                                 data.data.comment
-                                '</div>';
+                            +'</div>'
+                            +'<div class="layui-col-md2">'+
+                            '<button class="layui-btn-sm layui-btn "  onclick="answer_reply(this)" '
+                            +'data-answer-id="'
+                            +parseInt(data.data.answer_id)
+                            +'" data-comment-id="'
+                            +parseInt(data.data.comment_id)
+                            +'" data-belog="0"> 回复</button>'
+                            +'</div>'
+                            +replyhtml
+                            +data.data.comment
+                            '</div>';
 
-                                $('#'+'comment'+data.data.answer_id).append(html);
+                            $('#'+'comment'+data.data.answer_id).append(html);
 
-                        }break;
+                    }break;
 
-                        case 1:alert("收藏失败 请联系管理员");break;
+                    case 1:alert("收藏失败 请联系管理员");break;
 
-                        case 2:$("#collect").html('收藏');break;
+                    case 2:$("#collect").html('收藏');break;
 
-                        case 3:alert("取消收藏失败");break;
+                    case 3:alert("取消收藏失败");break;
 
                     }
 
@@ -248,7 +266,7 @@
                 error: function(){
 
                 }
-            });
+                });
 
 
 

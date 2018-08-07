@@ -16,12 +16,16 @@ class CommentController extends Controller
         $data=$request->all();
         $data['user_id'] = Auth::id();
         $result=Comment::create($data);
-        if($result){
+        if($result)
         $dataArr=BlogFacade::getJson();
         $dataArr['data']=$result;
+
+        if(!$dataArr['data']['belog']){//如果是回复
+        $dataArr['data']['user']=Comment::find($request->comment_id)->user->info->nick;
+        }
 
         return json_encode($dataArr);
         }
 
-    }
+
 }
