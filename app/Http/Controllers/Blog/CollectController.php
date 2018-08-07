@@ -48,6 +48,7 @@ class CollectController extends Controller
            'data'=>'',
            'msg'=>'收藏成功'
         );
+
         //如果没有收藏这个文章 增加收藏
         if(empty($result->first())) {
 

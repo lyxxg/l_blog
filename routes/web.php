@@ -48,9 +48,12 @@ Route::group(['namespace'=>'Blog'],function () {
 
 
     //答案
-     Route::resource("answer","AnswerController");
+    Route::resource("answer","AnswerController")->middleware(['auth']);;
 
+     //采纳答案
+    Route::post("accept","AnswerController@accept")->name("accept");
 
+    Route::post("comment","CommentController@comment")->name("comment");
 });
 
 

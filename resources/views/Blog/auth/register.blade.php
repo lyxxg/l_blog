@@ -7,7 +7,7 @@
                             {{ csrf_field() }}
 
         <!---顶象sdk-->
-            <input type="hidden" name="token" value="" id="BlogToken">
+            <input type="hidden" name="DXtoken" value="" id="BlogToken">
 
 
             <div class="layui-colla-title">
@@ -110,12 +110,13 @@
         </form>
 
     </div>
-
+    <input type="hidden" value="{{env('DXAppId')}}" id="dxappid">
     <script src="https://cdn.dingxiang-inc.com/ctu-group/captcha-ui/index.js"></script>
     <script>
 
+        var DXappid=document.getElementById("dxappid").value;
         var myCaptcha = _dx.Captcha(document.getElementById('c1'), {
-            appId: '9eb369e65c776c2f3bfaef1d944b3e2a',   //appId,开通服务后可在控制台中“服务管理”模块获取
+            appId: DXappid,   //appId,开通服务后可在控制台中“服务管理”模块获取
             success: function (token) {
                 document.getElementById("BlogToken").value=token;
             }

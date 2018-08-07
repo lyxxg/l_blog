@@ -82,12 +82,13 @@
     </form>
 
     </div>
-
+    <input type="hidden" value="{{env('DXAppId')}}" id="dxappid">
     <script src="https://cdn.dingxiang-inc.com/ctu-group/captcha-ui/index.js"></script>
     <script>
 
-        var myCaptcha = _dx.Captcha(document.getElementById('c1'), {
-            appId: '7a7ec5a8e7b80be8ee4e4689cce4e4da',   //appId,开通服务后可在控制台中“服务管理”模块获取
+       var DXappid=document.getElementById("dxappid").value;
+       var myCaptcha = _dx.Captcha(document.getElementById('c1'), {
+            appId: DXappid,   //appId,开通服务后可在控制台中“服务管理”模块获取
             success: function (DXtoken) {
                 document.getElementById("BlogToken").value=DXtoken;
             }

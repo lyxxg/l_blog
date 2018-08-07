@@ -5,6 +5,10 @@
     clear:both;
 }
 
+/*防止頁腳太在上面*/
+.box-min{
+    min-height: 555px;
+}
 
 #focus>div{
     display: block;
@@ -183,3 +187,9 @@ comment*
 .comment{
     margin-top: 10px;
 }
+
+
+.layer-content{bsolute;
+    top: 6555px;
+}
+

@@ -18,6 +18,7 @@ class BlogServiceProvider extends ServiceProvider
     public function boot()
     {
 
+
        //公告
        $announcement=\Redis::get("announcement");
         if(empty($announcement)) {

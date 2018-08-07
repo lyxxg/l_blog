@@ -43,7 +43,7 @@
 
 
                     <div class="layui-col-md4">
-                        <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nickname}}
+                        <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nick}}
                         <i class="layui-icon layui-icon-date"></i>{{$article->created_at->diffForHumans()}}
                         浏览数:{{$article->view}}
                     </div>
@@ -54,10 +54,9 @@
                 <div class="layui-field-box article-content">
                     <div class="layui-field-box article-content">
                         <div id="showMD">
-                     <textarea style="display:none;" name="editormd-markdown-doc">
-{!!$article->content!!}</textarea>
-                        </div></div>
-
+                     <textarea style="display:none;" name="editormd-markdown-doc">{!!$article->content!!}</textarea>
+                     </div>
+                    </div>
                 </div>
 
             </fieldset>
@@ -98,38 +97,176 @@
 
             @foreach($article->answers as $answer)
 
-                <div class="item layui-elem-quote comment">
+                <div class="item layui-elem-quote comment" id="comment{{$answer->id}}">
                     <div class="layui-col-md10">
                         <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>
-                        <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nickname}}
+                        <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nick}}
                         <i class="layui-icon layui-icon-date"></i>{{$article->created_at->diffForHumans()}}
                     </div>
 
 
                     <div class="layui-col-md2">
 
+                        @if($article->accept!=$answer->id)
                         @if($Mdata['is'])
-                        <button class="layui-btn-sm layui-btn blog-accept" value="{{$answer->id}}">采纳</button>
+                            @if($article->accept==0)
+                         <button class="layui-btn-sm layui-btn accept-btn" value="{{$answer->id}}"
+                                data-article-id="{{$article->id}}" data-answer-id="{{$answer->id}}"
+                    data-id="answer{{$answer->id}}"  id="answer{{$answer->id}}"  onclick="accept(this)">采纳</button>
+                         @endif
+                         @endif
+
+                            @else
+
+                            <button class="layui-btn-sm layui-btn accept-btn" value="{{$answer->id}}"
+                                    data-article-id="{{$article->id}}" data-answer-id="{{$answer->id}}"
+                                    data-id="answer{{$answer->id}}"  id="answer{{$answer->id}}"  onclick="accept(this)">已采纳</button>
+
                         @endif
-                            <button class="layui-btn-sm layui-btn"> 回复</button>
+
+
+
+                            <button class="layui-btn-sm layui-btn "  onclick="answer_reply(this)" data-answer-id="{{$answer->id}}" data-answer-id={{$answer->id}} data-typearticle="comment"  data-belog="1"> 回复</button>
 
                     </div>
 
 
 
                     {!! $answer->content !!}
+
+                    {{--回复答案--}}
+                    @foreach($answer->comments as $comment)
+                        <hr/><hr/>
+                        <div class="item">
+                            <div class="layui-col-md10">
+                                <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>
+                                <i class="layui-icon layui-icon-username"></i>{{$comment->user->info->nick}}
+                                <i class="layui-icon layui-icon-date"></i>{{$comment->created_at->diffForHumans()}}
+                            </div>
+
+
+                            <div class="layui-col-md2">
+
+
+                                <button class="layui-btn-sm layui-btn "  onclick="answer_reply(this)" data-answer-id="{{$answer->id}}" data-answer-id={{$answer->id}} data-typearticle="comment"  data-belog="1"> 回复</button>
+
+                            </div>
+                            {!! $comment->comment !!}
+                        </div>
+
+
+                    @endforeach
+
                 </div>
 
-            @endforeach
+
+
+
+                @endforeach
+
 
         </div>
 
+
+
+
     </div>
+
+    <script src="{{asset('blog/css/layui/lay/modules/layer.js')}}"></script>
+
     <script>
+        var csrf_token=$("#collect_token").val();
+
+
+        function answer_reply(obj)
+        {
+
+        var belog = $(obj).attr("data-belog");
+        var answer_id = $(obj).attr("data-answer-id");
+        var comment_id = $(obj).attr("data-comment-id") ? $(obj).attr("data-comment-id") : 0;
+        var typearticle = $(obj).attr("data-typearticle");
+
+        //兼容手机端设置
+        var w = document.documentElement.scrollWidth || document.body.scrollWidth;
+        if (w >= 600) {
+            layerw = 800 + "px";
+            layerh = 500 + "px";
+        } else {
+            layerw = 300 + "px";
+            layerh = 200 + "px";
+        }
+
+        layer.prompt({
+            offset: ['10px', '80px'],
+            formType: 2,
+            title: '回复',
+            area: [layerw, layerh] //自定义文本域宽高
+        }, function (value, index, elem) {
+            $.ajax({
+                type:"POST",
+                url:"{{route('comment')}}",
+                data:{'belog':belog,'answer_id':answer_id,'comment_id':comment_id,'typearticle':typearticle,'comment':value,_token:csrf_token},
+                datatype: "json",
+                success:function(data){
+                    data=JSON.parse(data);
+
+                    switch (data.code) {
+
+                        case 0:{
+
+                            var html='';
+                            html+=
+                                '<hr/><hr/>'
+                                +'<div class="item">'
+                                +'<div class="layui-col-md10">'+
+                                '<span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>'
+                                +'<i class="layui-icon layui-icon-username"></i>'
+                                +data.data.created_at
+                                +'<i class="layui-icon layui-icon-date"></i>'
+                                +data.data.created_at
+                                +'</div>'
+                                +'<div class="layui-col-md2">'+
+                                '<button class="layui-btn-sm layui-btn "  onclick="answer_reply(this)" data-answer-id="data.data.id" data-answer-id=data.data.id data-typearticle="comment"  data-belog="1"> 回复</button>'
+                                 +
+                                '</div>'+
+                                 data.data.comment
+                                '</div>';
+
+                                $('#'+'comment'+data.data.answer_id).append(html);
+
+                        }break;
+
+                        case 1:alert("收藏失败 请联系管理员");break;
+
+                        case 2:$("#collect").html('收藏');break;
+
+                        case 3:alert("取消收藏失败");break;
+
+                    }
+
+                }   ,
+                error: function(){
+
+                }
+            });
+
+
+
+            layer.close(index);//关闭窗口
+
+        });
+
+        }
+
+
+
+
         //收藏
+
         $("#collect").click(function () {
+
             var article_id={{$article->id}};
-            var csrf_token=$("#collect_token").val();
+
             $.ajax({
                 type:"POST",
                 url:"{{route('collect.store')}}",
@@ -161,40 +298,53 @@
 
 
 
-    //采纳
-        $(".blog-accept").click(function () {
-            var article_id={{$article->id}};
-            var answer_id=$(".blog-accept").val();
-            var csrf_token=$("#collect_token").val();
-          alert(answer_id);
-            $.ajax({
-                type:"POST",
-                url:"{{route('collect.store')}}",
-                data:{a_id:article_id,_token:csrf_token},
-                datatype: "json",
-                success:function(data){
-                    data=JSON.parse(data);
+
+    //文章id  答案id   采纳
+    function accept(obj)
+    {
+        var article_id=$(obj).attr("data-article-id");
+        var answer_id=$(obj).attr("data-answer-id");
+        var id="#"+$(obj).attr("data-id");
+
+        $.ajax({
+            type:"POST",
+            url:"{{route('accept')}}",
+            data:{a_id:article_id,an_id:answer_id,_token:csrf_token},
+            datatype: "json",
+            success:function(data){
+                data=JSON.parse(data);
+                switch (data.code) {
+
+                    case 0:{
+                        $(id).html("已采纳");
+                        $(id).removeClass('accept-btn');
+                        $(".accept-btn").hide(300);
+                        $(".accept").hide(300);
 
 
-                    switch (data.code) {
+                    }break;
 
-                        case 0:$("#collect").html('已收藏');break;
+                    case 1:alert("收藏失败 请联系管理员");break;
 
-                        case 1:alert("收藏失败 请联系管理员");break;
+                    case 2:$("#collect").html('收藏');break;
 
-                        case 2:$("#collect").html('收藏');break;
-
-                        case 3:alert("取消收藏失败");break;
-
-                    }
-
-                }   ,
-                error: function(){
+                    case 3:alert("取消收藏失败");break;
 
                 }
-            });
 
-        })
+            }   ,
+            error: function(){
+
+            }
+        });
+
+
+    }
+
+
+    //回复
+
+
 
 
     </script>

@@ -88,7 +88,7 @@ class UserController extends Controller
 
         if(!empty($request->file('avatar'))) {
             UserInfo::where('user_id',$user_id)
-                ->update(['avatar'=>$request->file('avatar')->store('avatar')]);
+            ->update(['avatar'=>$request->file('avatar')->store('avatar')]);
         }
 
     return redirect()-> route('user.show',$user_id);

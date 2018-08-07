@@ -51,8 +51,6 @@ protected function validateLogin(Request $request) {
 
 
     $result=event(new DXEvent($request))[0];
-
-
     if(!$result){
 
        Session()->flush();

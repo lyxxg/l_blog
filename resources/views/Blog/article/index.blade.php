@@ -63,7 +63,7 @@
                 </div>
 
 
-                <div class="view-all layui-btn"><a href="{{url('articleshow/'.$article->id)}}">查看所有</a></div>
+                <a href="{{url('articleshow/'.$article->id)}}"> <div class="view-all layui-btn">查看所有</div></a>
 
 
             </fieldset>
