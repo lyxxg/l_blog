@@ -99,14 +99,17 @@ class BlogService
 
 
         //获取用户个人资料
-        public function getUserInfo(){
+        public function getUserInfo($id=''){
 
-        $user_key='user_'.Auth::id();
+        $user_key='user_'.$id;
+        if(empty($id)){//此时再去数据库查询当前登录的id
+            $user_key='user_'.Auth::id();
+        }
 
         $userinfo=\Redis::get($user_key);
         $userinfo=json_decode($userinfo);
 
-        if(empty($userinfo)){
+        if(empty($userinfo)){//如果redis没有获取到这个用户的信息
 
         $userinfo=Auth::user()->info->where('user_id',Auth::id())->select('nick','coins','sex','avatar','user_id')->get();
 

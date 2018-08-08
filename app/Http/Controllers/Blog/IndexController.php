@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Blog;
 
 use App\Facades\BlogFacade;
 use App\Http\Requests\Blog\ArticlePost;
+use App\Models\Answer;
 use App\Models\Article;
 use App\Models\ArticleTag;
 use App\Models\Collection;
+use App\Models\Comment;
 use App\Models\Focu;
 use App\Models\Tag;
 use App\Services\BlogService;
@@ -29,6 +31,7 @@ class IndexController extends Controller
 
         $articles=Article::with(['tags','user.info'])->Where('del','0')
          ->orderBy('created_at','desc')->paginate(8);
+
         //焦点图
         $focus = \Redis::get('focus');
 
@@ -104,11 +107,11 @@ class IndexController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id,Answer $answer,Comment $comment)
     {
+        \DB::enableQueryLog();
 
         $auth_id=Auth::id();
-
         //是否是收藏 and 是否是作者  是为1
         $Mdata=array(
             'collect'=>0,
@@ -119,14 +122,17 @@ class IndexController extends Controller
             $Mdata['collect']=0;
         }
 
-        $article=Article::With('answers.comments','answers')->find($id);
 
+        $article=Article::find($id);
+
+        //楼中楼评论 没法优化了
+        $answers=$answer::With('comments.fathercomment')->where('article_id',$article->id)->get();
         if($auth_id==$article->user_id){
             $Mdata['is']=1;
         }
 
+        return view("Blog.article.show",compact('article','Mdata','answers'));
 
-        return view("Blog.article.show",compact('article','Mdata'));
 
     }
 

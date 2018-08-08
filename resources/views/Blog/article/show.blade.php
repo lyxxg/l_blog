@@ -43,7 +43,7 @@
 
 
                     <div class="layui-col-md4">
-                        <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nick}}
+                        <i class="layui-icon layui-icon-username"></i>{{Blog::getUserInfo($article->user_id)->nick}}
                         <i class="layui-icon layui-icon-date"></i>{{$article->created_at->diffForHumans()}}
                         浏览数:{{$article->view}}
                     </div>
@@ -95,12 +95,12 @@
 
 
 
-            @foreach($article->answers as $answer)
+            @foreach($answers as $answer)
 
                 <div class="item layui-elem-quote comment" id="comment{{$answer->id}}">
                     <div class="layui-col-md10">
                         <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>
-                        <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nick}}
+                        <i class="layui-icon layui-icon-username"></i>{{Blog::getUserInfo($answer->usre_id)->nick}}
                         <i class="layui-icon layui-icon-date"></i>{{$article->created_at->diffForHumans()}}
                     </div>
 
@@ -140,7 +140,8 @@
                         <div class="item">
                             <div class="layui-col-md10">
                                 <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>
-                                <i class="layui-icon layui-icon-username"></i>{{$comment->user->info->nick}}
+                                <i class="layui-icon layui-icon-username"></i>
+                                {{Blog::getUserInfo($comment->user_id)->nick}}
                                 <i class="layui-icon layui-icon-date"></i>{{$comment->created_at->diffForHumans()}}
                             </div>
 
@@ -154,7 +155,8 @@
                             @if($comment->belog==1)
                             {!! $comment->comment !!}
                             @else
-                            {!!"<span style='color:green'>回复</span>".$comment->fathercomment->user->info->nick!!}:
+                            {!!"<span style='color:green'>回复</span>"!!}
+                                {{Blog::getUserInfo($comment->fathercomment->user_id)->nick}}:
 
                             {!!$comment->comment!!}
 
@@ -179,7 +181,7 @@
 
 
     </div>
-    <input type="hidden" value="{{Auth::user()->info->nick}}" id="nickname">
+    <input type="hidden" value="{{Blog::getUserInfo(Auth::id())->nick}}" id="nickname">
     <script src="{{asset('blog/css/layui/lay/modules/layer.js')}}"></script>
 
     <script>
