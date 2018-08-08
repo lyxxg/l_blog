@@ -13,6 +13,7 @@ use App\Services\BlogService;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use function PHPSTORM_META\type;
 
@@ -26,9 +27,8 @@ class IndexController extends Controller
     public function index()
     {
 
-        $articles=Article::where('del', 0)
-            ->orderBy('created_at', 'desc')->paginate(6);
-
+        $articles=Article::with(['tags','user.info'])->Where('del','0')
+         ->orderBy('created_at','desc')->paginate(8);
         //焦点图
         $focus = \Redis::get('focus');
 
@@ -67,7 +67,6 @@ class IndexController extends Controller
 
 
         $user_id=Auth::id();
-        $user_id=1;
         $data=$request->all();
         $data['user_id']=$user_id;
         //DB::beginTransaction();//真想换成innodb
@@ -120,7 +119,7 @@ class IndexController extends Controller
             $Mdata['collect']=0;
         }
 
-        $article=Article::find($id);
+        $article=Article::With('answers.comments','answers')->find($id);
 
         if($auth_id==$article->user_id){
             $Mdata['is']=1;

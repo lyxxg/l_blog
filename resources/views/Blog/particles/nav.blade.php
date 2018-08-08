@@ -30,7 +30,7 @@
 
             {{--已登录--}}
             @if (!Auth::guest())
-            <a href=""><img src="{{Storage::url(Auth::User()->info->avatar)}}" class="layui-nav-img">{{Auth::User()->info->nick}}</a>
+            <a href=""><img src="{{Storage::url(Blog::getUserInfo()->avatar)}}" class="layui-nav-img">{{Blog::getUserInfo()->nick}}</a>
             <dl class="layui-nav-child">
                 <dd><a href="{{route('user.show',Auth::User()->id)}}">个人中心</a></dd>
                 <dd><a href="{{ route('logout') }}"

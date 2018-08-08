@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services;
+use App\Models\Article;
 use Illuminate\Support\Facades\Auth;
 
 class BlogService
@@ -63,8 +64,7 @@ class BlogService
     static public function  isMe($id,$option,$send=0)
     {
 
-        $auth_id=Auth::id();
-
+        $auth_id=$this->getUserInfo()[0]->user_id;
         switch ($option)
         {
             case 1:{
@@ -79,7 +79,6 @@ class BlogService
 
             }break;
 
-
             case 2:{
 
             if($auth_id==$id){
@@ -88,25 +87,34 @@ class BlogService
 
             }break;
 
-
-
             case 3:{
             if(!$auth_id==$id){
                return view("errors.noisme");
             }
 
             }break;
-
-
-
         }
 
-
-        //$article=Article::find($request->a_id);
-
-
-
     }
+
+
+        //获取用户个人资料
+        public function getUserInfo(){
+
+        $user_key='user_'.Auth::id();
+
+        $userinfo=\Redis::get($user_key);
+        $userinfo=json_decode($userinfo);
+
+        if(empty($userinfo)){
+
+        $userinfo=Auth::user()->info->where('user_id',Auth::id())->select('nick','coins','sex','avatar','user_id')->get();
+
+        \Redis::set($user_key,$userinfo);
+        }
+            return $userinfo[0];
+        }
+
 
 
 }

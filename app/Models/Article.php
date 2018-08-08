@@ -22,12 +22,14 @@ class Article extends Model
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     function tags(){
-        return $this->belongsToMany(Tag::class,'article_tags');
+        return $this->belongsToMany(Tag::class,'article_tags')
+            -> select('name');
     }
 
     function user(){
         return $this->belongsTo(User::class);
     }
+
 
     function answers(){
         return $this->hasMany(Answer::class);

@@ -48,7 +48,7 @@
 
 
                     <div class="layui-col-md4">
-                        <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nickname}}
+                        <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nick}}
                         <i class="layui-icon layui-icon-date"></i>{{$article->created_at->diffForHumans()}}
                         浏览数:{{$article->view}}
                     </div>
