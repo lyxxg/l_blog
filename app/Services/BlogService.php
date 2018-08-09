@@ -2,6 +2,7 @@
 
 namespace App\Services;
 use App\Models\Article;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class BlogService
@@ -98,26 +99,26 @@ class BlogService
     }
 
 
+        public $userinfo;
         //获取用户个人资料
         public function getUserInfo($id=''){
 
-        $user_key='user_'.$id;
-        if(empty($id)){//此时再去数据库查询当前登录的id
-            $user_key='user_'.Auth::id();
-        }
+            if(empty($id)){//此时再去数据库查询当前登录的id
+                if(!Auth::guest())
+                $id = Auth::id();
+                else
+                $id=3;//2是游客
+            }
+            $user_key='user_'.$id;
 
-        $userinfo=\Redis::get($user_key);
-        $userinfo=json_decode($userinfo);
-
-        if(empty($userinfo)){//如果redis没有获取到这个用户的信息
-
-        $userinfo=Auth::user()->info->where('user_id',Auth::id())->select('nick','coins','sex','avatar','user_id')->get();
-
-        \Redis::set($user_key,$userinfo);
-        }
+            $userinfo=\Redis::get($user_key);
+            $userinfo=json_decode($userinfo);
+            if(empty($userinfo)){//如果redis没有获取到这个用户的信息
+                $userinfo=User::find($id)->info()->select('nick','coins','sex','avatar','user_id')->get();
+           
+                \Redis::set($user_key,$userinfo);
+            }
             return $userinfo[0];
         }
-
-
 
 }

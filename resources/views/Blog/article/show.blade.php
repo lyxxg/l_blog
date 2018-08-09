@@ -74,24 +74,21 @@
             <h3 class="layui-colla-title">{{$article->answer}}回答</h3>
             <!--评论区-->
 
-            <form class="layui-form" action="{{route('answer.store')}}" method="post">
-                {{csrf_field()}}
-                <input type="hidden" name="article_id" value="{{$article->id}}">
+            <input type="hidden" name="article_id" value="{{$article->id}}">
                 <div class="layui-form-item layui-form-text">
                     <label class="layui-form-label">评论一下吧</label>
                     <div class="layui-input-block">
-                        <textarea  placeholder="请输入内容" class="layui-textarea" name="content"></textarea>
+                        <textarea  placeholder="请输入内容" class="layui-textarea" id="answer-content"></textarea>
                     </div>
                 </div>
 
                 <div class="layui-form-item">
                     <div class="layui-input-block">
-                        <button class="layui-btn" lay-submit lay-filter="formDemo">回答</button>
+                        <button class="layui-btn" lay-submit lay-filter="formDemo" id="answer">回答</button>
                     </div>
                 </div>
 
 
-            </form>
 
 
 
@@ -182,11 +179,50 @@
 
     </div>
     <input type="hidden" value="{{Blog::getUserInfo(Auth::id())->nick}}" id="nickname">
+    <input type="hidden" value="{{$article->id}}" id="article_id">
+
     <script src="{{asset('blog/css/layui/lay/modules/layer.js')}}"></script>
 
     <script>
+
+
+
         var csrf_token=$("#collect_token").val();
+        var artcile_id=$("#article_id").val();
         nickname=$("#nickname").val();
+       //回答
+
+        $("#answer").click(function () {
+        var content=$("#answer-content").val();
+
+        $.ajax({
+        type:"POST",
+        url:"{{route('answer.store')}}",
+        datatype:'json',
+        data:{'article_id':artcile_id,'content':content,'_token':csrf_token},
+        success:function(data){
+            switch (data.code) {
+            case 0:{
+                window.location.reload();//懒了。。 不想拼html了
+            }
+
+
+                }
+            },error:function () {
+                layer.msg('出bug了', {icon: 5,offset:top});
+
+            }
+        });//ajax end
+
+        });
+
+
+
+
+
+
+
+        //评论和回复
         function answer_reply(obj)
         {
 
@@ -266,6 +302,7 @@
 
                 }   ,
                 error: function(){
+                    layer.msg('出bug了', {icon: 5,offset:top});
 
                 }
                 });
@@ -310,6 +347,7 @@
 
                 }   ,
                 error: function(){
+                    layer.msg('出bug了', {icon: 5,offset:top});
 
                 }
             });

@@ -43,10 +43,12 @@ class AnswerController extends Controller
     $answer->article_id=$request->article_id;
     $answer->user_id=Auth::id();
     $answer->content=$request->content;
-    if($answer->save()){
-        return back();
-    }
+    $result=$answer->save();
 
+    if($result)
+    $dataArr=BlogFacade::getJson();
+    $dataArr['data']=$result;
+    return $dataArr;
 
 
     }
