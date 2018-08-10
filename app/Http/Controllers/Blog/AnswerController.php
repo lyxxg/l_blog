@@ -8,6 +8,7 @@ use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\TopicReplied;
 
 class AnswerController extends Controller
 {
@@ -48,9 +49,10 @@ class AnswerController extends Controller
     if($result)
     $dataArr=BlogFacade::getJson();
     $dataArr['data']=$result;
+
+    $topic=$reply->$topic;
+
     return $dataArr;
-
-
     }
 
     /**
