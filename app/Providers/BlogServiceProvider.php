@@ -17,7 +17,6 @@ class BlogServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-/*
 
        //公告
        $announcement=\Redis::get("announcement");
@@ -52,7 +51,7 @@ class BlogServiceProvider extends ServiceProvider
                         view()->share("blogtags",$blogtags);
                         view()->share('announcement',$announcement);
                         view()->share('articlehots',$articlehots);
-*/
+
     }
 
     /**

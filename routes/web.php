@@ -14,6 +14,8 @@
 
 
 
+Auth::routes();             //用户认证
+
 
 Route::resource("test","Test\TestController");
 
@@ -57,9 +59,14 @@ Route::group(['namespace'=>'Blog'],function () {
 });
 
 
-Auth::routes();
 
 
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['prefix'=>'admin','namespace'=>'Admin','as'=>'admin.','middleware'=>["auth"]],function () {
+
+    Route::resource("/","IndexController");
+
+
+});
