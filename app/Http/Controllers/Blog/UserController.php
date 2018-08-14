@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Requests\Blog\UserUpdate;
+use App\Models\Notice;
 use App\Models\User;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
@@ -105,4 +106,13 @@ class UserController extends Controller
     {
         //
     }
+
+    //用户消息详情
+    public function notices()
+    {
+    $user_id=Auth::id();
+    $notices=Notice::Where("user_id",$user_id)->get();
+    return view("Blog.user.notices",compact('notices'));
+    }
+
 }

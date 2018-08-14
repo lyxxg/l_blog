@@ -13,6 +13,7 @@ class CreateFailedJobsTable extends Migration
      */
     public function up()
     {
+        //失败的队列
         Schema::create('failed_jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->text('connection');

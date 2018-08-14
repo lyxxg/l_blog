@@ -13,6 +13,7 @@ class CreateJobsTable extends Migration
      */
     public function up()
     {
+        //队列表
         Schema::create('jobs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('queue')->index();

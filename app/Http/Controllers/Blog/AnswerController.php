@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Facades\BlogFacade;
+use App\Jobs\TopicRepled;
 use App\Models\Answer;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Notifications\TopicReplied;
 
 class AnswerController extends Controller
 {
@@ -40,19 +40,35 @@ class AnswerController extends Controller
      */
     public function store(Request $request)
     {
-    $answer=new Answer();
-    $answer->article_id=$request->article_id;
-    $answer->user_id=Auth::id();
-    $answer->content=$request->content;
-    $result=$answer->save();
+    $data=$request->all();
+    $data['user_id']=Auth::id();
+    $result=Answer::create($data);
 
+    //返回处理结果数据
     if($result)
     $dataArr=BlogFacade::getJson();
     $dataArr['data']=$result;
 
-    $topic=$reply->$topic;
+   //这篇文章是那个用户写的
+    $user_id=Article::find($request->article_id)->user_id;
+
+   //存进通知表的数据
+    $notices=array(
+     'user_id'=>$user_id,
+     'action'=>'answer',
+     'object_id'=>$result->id,
+     'object_user_id'=>$result->user_id,
+     'article_id'=>'1',
+     'msg'=>$result->content
+     );
+    //不是作者本人就加入通知
+    if($user_id!=Auth::id())
+    $this->dispatch(new TopicRepled($notices));
+
+
 
     return $dataArr;
+
     }
 
     /**
@@ -107,11 +123,11 @@ class AnswerController extends Controller
         //a_id文章id  an_id 答案id
 
         $dataArr=BlogFacade::getJson();
-        //验证是否是本人
 
         $answer=Answer::find($request->an_id);
         $article=Article::find($request->a_id);
-        //这是自定义的门面
+
+        //验证是否是本人
         $result=BlogFacade::isMe($answer->user_id,1);
         if(!empty($result)){
             return $result;

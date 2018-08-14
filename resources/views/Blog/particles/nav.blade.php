@@ -54,7 +54,11 @@
         </li>
 
         <li class="layui-nav-item">
-            <a href="">消息</a>
+            @if($count=Blog::noticeCount())
+            <a href="">消息<span class="layui-badge">{{$count}}</span></a>
+            @else
+             <a href="">消息</a>
+             @endif
         </li>
 
 

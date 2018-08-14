@@ -9,6 +9,11 @@ class BlogService
 {
 
 
+    protected  $user_id;
+    public function __construct()
+    {
+        $this->user_id=Auth::id();
+    }
 
 
     //判断性别
@@ -68,57 +73,72 @@ class BlogService
         $auth_id=$this->getUserInfo()[0]->user_id;
         switch ($option)
         {
-            case 1:{
-                $dataArr=self::getJson();
-                if($auth_id!=$id)
-                {
-                    $dataArr['code']=5;
-                    $dataArr['msg']='你别搞事情 我跟你讲';
-                    $dataArr['data']='(ノ｀Д)ノ';
-                    return $dataArr;
-                }
-
-            }break;
-
-            case 2:{
-
-            if($auth_id==$id){
-                return 1;
-            }return 0;
-
-            }break;
-
-            case 3:{
-            if(!$auth_id==$id){
-               return view("errors.noisme");
+        case 1:{
+            $dataArr=self::getJson();
+            if($auth_id!=$id)
+            {
+                $dataArr['code']=5;
+                $dataArr['msg']='你别搞事情 我跟你讲';
+                $dataArr['data']='(ノ｀Д)ノ';
+                return $dataArr;
             }
 
-            }break;
+        }break;
+
+        case 2:{
+
+        if($auth_id==$id){
+            return 1;
+        }return 0;
+
+        }break;
+
+        case 3:{
+        if(!$auth_id==$id){
+           return view("errors.noisme");
         }
+
+        }break;
+    }
 
     }
 
 
-        public $userinfo;
+    public $userinfo;
         //获取用户个人资料
-        public function getUserInfo($id=''){
+    public function getUserInfo($id=''){
 
-            if(empty($id)){//此时再去数据库查询当前登录的id
-                if(!Auth::guest())
-                $id = Auth::id();
-                else
-                $id=3;//2是游客
-            }
-            $user_key='user_'.$id;
+    if(empty($id)){//此时再去数据库查询当前登录的id
+        if(!Auth::guest())
+        $id = $this->user_id;
+        else
+        $id=2;//2是游客
+    }
+    $user_key='user_'.$id;
 
-            $userinfo=\Redis::get($user_key);
-            $userinfo=json_decode($userinfo);
-            if(empty($userinfo)){//如果redis没有获取到这个用户的信息
-                $userinfo=User::find($id)->info()->select('nick','coins','sex','avatar','user_id')->get();
-           
-                \Redis::set($user_key,$userinfo);
-            }
-            return $userinfo[0];
-        }
+    $userinfo=\Redis::get($user_key);
+    $userinfo=json_decode($userinfo);
+    if(empty($userinfo)){//如果redis没有获取到这个用户的信息
+
+       $userinfo=User::find($id)->info()->select('nick','coins','sex','avatar','user_id')->get();
+        \Redis::set($user_key,$userinfo);
+    }
+
+    return $userinfo[0];
+}
+
+
+
+    //用户未读总数
+    public function noticeCount()
+    {
+
+    $count=\Redis::get('n_'.$this->user_id);
+    if(!empty($count))
+    return $count;
+    return false;
+
+    }
+
 
 }

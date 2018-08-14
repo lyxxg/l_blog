@@ -30,7 +30,7 @@ class IndexController extends Controller
     public function index()
     {
 
-        $this->dispatch(new TopicRepled());
+
         $articles=Article::with(['tags','user.info'])->Where('del','0')
          ->orderBy('created_at','desc')->paginate(8);
 
@@ -111,7 +111,6 @@ class IndexController extends Controller
      */
     public function show($id,Answer $answer,Comment $comment)
     {
-        \DB::enableQueryLog();
 
         $auth_id=Auth::id();
         //是否是收藏 and 是否是作者  是为1

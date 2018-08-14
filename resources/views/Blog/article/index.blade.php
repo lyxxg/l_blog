@@ -38,7 +38,7 @@
                 <div class="status">
 
                     <div class="layui-col-md8">
-                        <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>
+                        <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img"></span>
 
                         @foreach($article->tags as $tag)
                         <span class="status layui-badge">{{$tag->name}}</span>

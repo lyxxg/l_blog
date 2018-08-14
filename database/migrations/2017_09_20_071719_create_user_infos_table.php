@@ -11,6 +11,7 @@ class CreateUserInfosTable extends Migration
      *
      * @return void
      */
+    //用户信息
     public function up()
     {
         Schema::create('user_infos', function (Blueprint $table) {

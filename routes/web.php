@@ -40,11 +40,6 @@ Route::group(['namespace'=>'Blog'],function () {
     //标签
     Route::resource("tag", "TagController");
 
-    //用户个人中心
-    Route::resource("user","UserController");
-
-
-
     //editor.md图片上传
     Route::post('/uploadimage', "IndexController@imageupload");
 
@@ -52,10 +47,23 @@ Route::group(['namespace'=>'Blog'],function () {
     //答案
     Route::resource("answer","AnswerController")->middleware(['auth']);;
 
-     //采纳答案
+    //采纳答案
     Route::post("accept","AnswerController@accept")->name("accept");
 
+    //评论
     Route::post("comment","CommentController@comment")->name("comment");
+
+
+
+    //用户个人中心
+    Route::resource("user","UserController");
+
+    //用户消息详情
+    Route::get("notices","UserController@notices")->name("notice")
+    ->middleware('auth');
+
+
+
 });
 
 
@@ -64,6 +72,7 @@ Route::group(['namespace'=>'Blog'],function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//后台
 Route::group(['prefix'=>'admin','namespace'=>'Admin','as'=>'admin.','middleware'=>["auth"]],function () {
 
     Route::resource("/","IndexController");

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Answer extends Model
 {
-    protected $fillable = ["question_id","user_id","accept","content","good","bad"];
+    protected $fillable = ["article_id","user_id","accept","content","good","bad"];
 
 
     function user(){
@@ -19,7 +19,6 @@ class Answer extends Model
 	
 	function question(){
 		return $this->hasOne(Question::class);
-	
-	}
+    }
 
 }
