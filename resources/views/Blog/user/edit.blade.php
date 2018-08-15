@@ -14,7 +14,7 @@
 
 
         <h2 class="layui-timeline-title" contenteditable="true" id="nick1">
-            {{$user->info->nick}}
+            {!!$user->info->nick!!}
         </h2>
 
         <input type="hidden" name="nick" value="{{$user->info->nick}}" id="nick2">
@@ -50,7 +50,6 @@
             </div>
         </div>
     </form>
-
                 </div></div></div></div>
 
 

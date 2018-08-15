@@ -96,7 +96,7 @@
 
                 <div class="item layui-elem-quote comment" id="comment{{$answer->id}}">
                     <div class="layui-col-md10">
-                        <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>
+                        #{{$answer->id}}<span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>
                         <i class="layui-icon layui-icon-username"></i>{{Blog::getUserInfo($answer->user_id)->nick}}
                         <i class="layui-icon layui-icon-date"></i>{{$article->created_at->diffForHumans()}}
                     </div>

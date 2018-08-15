@@ -24,4 +24,5 @@ class Notice extends Model
         return $this->belongsTo(Answer::class,"object_id","id");
     }
 
+
 }

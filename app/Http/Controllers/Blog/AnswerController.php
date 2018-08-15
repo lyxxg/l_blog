@@ -56,9 +56,8 @@ class AnswerController extends Controller
     $notices=array(
      'user_id'=>$user_id,
      'action'=>'answer',
-     'object_id'=>$result->id,
+     'object_id'=>$request->article_id,
      'object_user_id'=>$result->user_id,
-     'article_id'=>'1',
      'msg'=>$result->content
      );
     //不是作者本人就加入通知

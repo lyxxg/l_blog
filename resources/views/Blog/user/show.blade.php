@@ -6,7 +6,7 @@
    <div class="">
 
        <h2 class="layui-timeline-title">
-{{$user->info->nick}}
+   {!!$user->info->nick!!}
       </h2>
    </div>
 
