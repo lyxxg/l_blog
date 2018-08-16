@@ -23,14 +23,17 @@ class CommentController extends Controller
         if($result->belog){//1评论  0回复
         $action='comment';
         $user_id=Answer::find($result->answer_id)->user_id;
+        $object=$result->answer_id;
         }else{
+
         $action='reply';
         $user_id=Comment::find($result->comment_id)->user_id;
+        $object=$result->comment_id;
         }
         $notices=array(
             'user_id'=>$user_id,
             'action'=>$action,
-            'object_id'=>$result->comment_id,
+            'object_id'=>$object,
             'object_user_id'=>$result->user_id,
             'msg'=>$result->comment
         );

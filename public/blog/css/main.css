@@ -193,3 +193,15 @@ comment*
     top: 6555px;
 }
 
+
+.b-hover:hover{
+    font-weight: bold;
+    background: dodgerblue;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    color: black;
+}
+.b-word{
+    word-break: break-all;
+}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Http\Requests\Blog\PassUpdate;
 use App\Http\Requests\Blog\UserUpdate;
 use App\Models\Notice;
 use App\Models\User;
@@ -9,6 +10,8 @@ use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Mockery\Generator\StringManipulation\Pass\Pass;
 use function Sodium\compare;
 
 class UserController extends Controller
@@ -64,7 +67,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+
     return view("Blog.user.edit",compact('user'));
+
     }
 
     /**
@@ -78,19 +83,18 @@ class UserController extends Controller
     {
 
 
-        $user_id=Auth::id();
+    $user_id=Auth::id();
 
-        $sex=$request->sex;
-        $description=$request->desc;
+    $sex=$request->sex;
+    $description=$request->desc;
 
-         UserInfo::where('user_id',$user_id)
-            ->update
-            (['sex'=>$sex,'nick'=>$request->nick,'description'=>$description]);
+     UserInfo::where('user_id',$user_id)
+     ->update(['sex'=>$sex,'nick'=>$request->nick,'description'=>$description]);
 
-        if(!empty($request->file('avatar'))) {
-            UserInfo::where('user_id',$user_id)
-            ->update(['avatar'=>$request->file('avatar')->store('avatar')]);
-        }
+    if(!empty($request->file('avatar'))) {//如果头像不为空
+        UserInfo::where('user_id',$user_id)
+        ->update(['avatar'=>$request->file('avatar')->store('avatar')]);
+    }
 
     return redirect()-> route('user.show',$user_id);
 
@@ -110,9 +114,44 @@ class UserController extends Controller
     //用户消息详情
     public function notices()
     {
+
     $user_id=Auth::id();
-    $notices=Notice::Where("user_id",$user_id)->get();
+    \Redis::del('n_'.$user_id);//清楚用户的消息总数
+
+    $notices=Notice::with('article','comment','answer')->Where("user_id",$user_id)
+    ->orderByDesc('created_at')->get();
     return view("Blog.user.notices",compact('notices'));
+
     }
+
+
+    //修改密码
+    public function  passed(){
+
+    return view("Blog.user.passed");
+    }
+
+
+    //处理密码
+    public  function passtore(PassUpdate $request){
+
+    $user=Auth::user();
+    if(!Hash::check($request->old_password,$user->password)){
+        return back()->withErrors('原密码错误');
+    }
+    $user->password = bcrypt($request->password);
+    $user->save();
+    $request->session()->regenerate();
+    return redirect()-> route('user.show',$user->id);
+
+    }
+
+
+
+
+
+
+
+
 
 }

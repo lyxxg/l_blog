@@ -1,4 +1,3 @@
-
 <link href="{{asset('Editor/css/editormd.css')}}" rel="stylesheet" />
 <script src="{{asset('js/jquery.js')}}" type="text/javascript"></script>
 <script src="{{asset('Editor/lib/marked.min.js')}}"></script>
@@ -30,51 +29,49 @@
 
 
         @foreach($articles as $article)
-        <div class="item layui-elem-quote">
+            <div class="item layui-elem-quote">
 
-            <fieldset class="layui-elem-field layui-field-title">
-                <legend>{{$article->title}}</legend>
+                <fieldset class="layui-elem-field layui-field-title">
+                    <legend>{{$article->title}}</legend>
 
-                <div class="status">
+                    <div class="status">
 
-                    <div class="layui-col-md8">
-                        <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img"></span>
+                        <div class="layui-col-md8">
+                            <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>
 
-                        @foreach($article->tags as $tag)
-                        <span class="status layui-badge">{{$tag->name}}</span>
+                            @foreach($article->tags as $tag)
+                                <span class="status layui-badge">{{$tag->name}}</span>
                             @endforeach
 
+                        </div>
+
+
+                        <div class="layui-col-md4">
+                            <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nick}}
+                            <i class="layui-icon layui-icon-date"></i>{{$article->created_at->diffForHumans()}}
+                            浏览数:{{$article->view}}
+                        </div>
+
+                    </div>
+
+                    <div class="layui-field-box article-content blog-shrink">
+                        <div id="showMD">
+                        <textarea style="display:none;" name="editormd-markdown-doc">{!!$article->content!!}</textarea>
+                        </div>
                     </div>
 
 
-                    <div class="layui-col-md4">
-                        <i class="layui-icon layui-icon-username"></i>{{$article->user->info->nick}}
-                        <i class="layui-icon layui-icon-date"></i>{{$article->created_at->diffForHumans()}}
-                        浏览数:{{$article->view}}
-                    </div>
-
-                </div>
-
-                <div class="layui-field-box article-content blog-shrink">
-                    <div id="showMD">
-                        <textarea style="display:none;" name="editormd-markdown-doc">
-{!!$article->content!!}</textarea>
-                    </div>
-                </div>
+                    <a href="{{url('articleshow/'.$article->id)}}"> <div class="view-all layui-btn">查看所有</div></a>
 
 
-                <a href="{{url('articleshow/'.$article->id)}}"> <div class="view-all layui-btn">查看所有</div></a>
+                </fieldset>
+
+            </div>
 
 
-            </fieldset>
-
-        </div>
-
-
-@endforeach
+        @endforeach
 
     </div>
-<div class="lay"></div>
-{{$articles->links()}}
+    <div class="lay"></div>
+    {{$articles->links()}}
 @endsection("content")
-

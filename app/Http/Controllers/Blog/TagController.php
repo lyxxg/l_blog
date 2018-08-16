@@ -52,7 +52,7 @@ class TagController extends Controller
     public function show($tag_id)
     {
         //查找所有属于这个标签的文章
-       $tags=ArticleTag::Where('tag_id',$tag_id)->paginate(10);
+       $tags=ArticleTag::with('article','tag')->Where('tag_id',$tag_id)->paginate(10);
 
        return view('Blog.tag.show',compact('tags'));
 

@@ -22,15 +22,15 @@
                      关于您
                      <span>
                          <a href="{{url('articleshow/'.$notice->article_id)}}">
-                    @if($notice->action=='answer')
-                     <a href="{{url('articleshow/'.$notice->article->id)}}"> {{$notice->article->title}}
+                     @if($notice->action=='answer')
+                     <a href="{{url('articleshow/'.$notice->article->id)}}"> {{$notice->article->title}}</a>
                      @elseif($notice->action=='comment')
-                             <a href="{{url('articleshow/'.$notice->answer->article_id)}}">
-                                 {{$notice->comment->comment}}</a>
+                     <a href="{{url('articleshow/'.$notice->answer->article_id)}}">{{$notice->answer->content}}</a>
                      @else
-                      <a href="{{url('articleshow/'.$notice->answer->article_id)}}">
-                                 {{$notice->comment->comment}} </a>
-                     @endif
+                      <a href="{{url('articleshow/'.$notice->comment->answer->article_id)}}">
+                     {{$notice->comment->comment}}
+                      </a>
+                         @endif
 
 
                      </span>

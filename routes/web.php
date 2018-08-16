@@ -59,10 +59,14 @@ Route::group(['namespace'=>'Blog'],function () {
     Route::resource("user","UserController");
 
     //用户消息详情
-    Route::get("notices","UserController@notices")->name("notice")
+    Route::get("notices","UserController@notices")->name("notices")
     ->middleware('auth');
 
+    //修改密码页面
+    Route::get("passed","UserController@passed");
 
+    //处理修改密码
+    Route::post("passtore","UserController@passtore")->name('passtore');
 
 });
 

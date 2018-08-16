@@ -42,10 +42,10 @@ class BlogServiceProvider extends ServiceProvider
 
 
         //所有分类
-        $blogtags=\Redis::get("futruetags");
+        $blogtags=\Redis::get("blogtags");
         if(empty($blogtags)){
         $blogtags=Tag::all();
-        \Redis::set("futruetags",$blogtags);
+        \Redis::set("blogtags",$blogtags);
         }
         $blogtags=json_decode($blogtags);
 

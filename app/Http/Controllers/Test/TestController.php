@@ -21,7 +21,8 @@ class TestController extends Controller
     {
 
 
-
+return view("test.index");
+        dd("s");
         $dataArr=array(
             'code'=>0,
             'data'=>'',

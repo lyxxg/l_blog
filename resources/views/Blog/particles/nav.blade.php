@@ -55,9 +55,9 @@
 
         <li class="layui-nav-item">
             @if($count=Blog::noticeCount())
-            <a href="">消息<span class="layui-badge">{{$count}}</span></a>
+            <a href="{{route('notices')}}">消息<span class="layui-badge">{{$count}}</span></a>
             @else
-             <a href="">消息</a>
+             <a href="{{route('notices')}}">消息</a>
              @endif
         </li>
 

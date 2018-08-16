@@ -17,7 +17,7 @@
             <h2 class="layui-colla-title">热门文章</h2>
 
          @foreach($articlehots as $articlehot)
-            <div class="layui-colla-content layui-show">{{$articlehot->title}}</div>
+                <a href="{{url('articleshow/'.$articlehot->id)}}"><div class="layui-colla-content layui-show b-hover b-word">{{$articlehot->title}}</div></a>
          @endforeach
 
 
