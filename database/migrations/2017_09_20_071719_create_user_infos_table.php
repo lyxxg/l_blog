@@ -16,7 +16,8 @@ class CreateUserInfosTable extends Migration
     {
         Schema::create('user_infos', function (Blueprint $table) {
             $table->increments('user_id')->comment("主键同时也是外键");
-            $table->string('avatar',255)->nullable()->default("defaultico/default.gif")->comment("用户头像地址");
+            $table->string('savatar',100)->comment("头像的略缩图");
+            $table->string('avatar',255)->nullable()->comment("用户头像地址");
             $table->string('nick',20)->comment("用户昵称");
             $table->unsignedInteger('coins')->default(60)->comment("用户积分");
             $table->string("description")->nullable()->comment("个人描述")->default('这个人很懒');

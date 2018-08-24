@@ -2,12 +2,13 @@
 
 namespace App\Providers;
 
+use App\Facades\BlogFacade;
+use App\Jobs\Count;
 use App\Models\Announcement;
 use App\Models\Article;
 use App\Models\Tag;
 use App\Services\BlogService;
 use Illuminate\Support\ServiceProvider;
-
 class BlogServiceProvider extends ServiceProvider
 {
     /**
@@ -20,7 +21,7 @@ class BlogServiceProvider extends ServiceProvider
     {
 
         //公告
-       $announcement=\Redis::get("announcement");
+        $announcement=\Redis::get("announcement");
         if(empty($announcement)) {
         $announcement = Announcement::all()->last();
         \Redis::set("announcement", $announcement);
@@ -28,15 +29,13 @@ class BlogServiceProvider extends ServiceProvider
         $announcement=json_decode($announcement);
 
 
-
         //热门文章  阅读量前10的文章
         $articlehots=\Redis::get("articlehots");
         if(empty($articlehots)){
         $articlehots=Article::all()->sortByDesc('view')->take(10);
 
-        //注意 是key timeout  value
+        //key timeout  value
         \Redis::setex("articlehots",20,$articlehots);
-//                 \Redis::set("articlehots",$articlehots,20);
         }
         $articlehots=json_decode($articlehots);
 
@@ -49,10 +48,10 @@ class BlogServiceProvider extends ServiceProvider
         }
         $blogtags=json_decode($blogtags);
 
-
         view()->share("blogtags",$blogtags);
         view()->share('announcement',$announcement);
         view()->share('articlehots',$articlehots);
+
 
     }
 
@@ -69,7 +68,6 @@ class BlogServiceProvider extends ServiceProvider
 
             return new BlogService();
         });
-
 
 
     }

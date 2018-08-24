@@ -37,7 +37,7 @@
                     <div class="status">
 
                         <div class="layui-col-md8">
-                            <span class="avatar"><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img "></span>
+                            <span class="avatar"><img src="{{ Storage::url(Blog::getUserInfo($article->user_id)->savatar) }}" class="layui-nav-img "></span>
 
                             @foreach($article->tags as $tag)
                                 <span class="status layui-badge">{{$tag->name}}</span>
@@ -56,7 +56,9 @@
 
                     <div class="layui-field-box article-content blog-shrink">
                         <div id="showMD">
-                        <textarea style="display:none;" name="editormd-markdown-doc">{!!$article->content!!}</textarea>
+                        <textarea style="display:none;" name="editormd-markdown-doc">
+                            </textarea>{{$article->content}}
+                            <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:none;"></textarea>
                         </div>
                     </div>
 

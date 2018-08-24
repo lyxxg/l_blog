@@ -57,7 +57,8 @@ return [
             'visibility' => 'public',
         ],
 
-        's3' => [
+        's3'=> [
+
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
             'secret' => env('AWS_SECRET_ACCESS_KEY'),
@@ -65,6 +66,30 @@ return [
             'bucket' => env('AWS_BUCKET'),
             'url' => env('AWS_URL'),
         ],
+
+
+        //写入到日志
+        'log'=>[
+            'driver'=>'local',
+            'root'=>storage_path('app/logs/'.date('y/m')),
+        ],
+
+        //七牛配置 30天测试域名过期 不用了
+        'qiniu' => [
+            'driver'  => 'qiniu',
+            'domains' => [
+                'default'   => 'xxxxx.com1.z0.glb.clouddn.com', //你的七牛域名
+                'https'     => 'dn-yourdomain.qbox.me',         //你的HTTPS域名
+                'custom'    => '',                //Useless 没啥用，请直接使用上面的 default 项
+            ],
+            'access_key'=> '',  //AccessKey
+            'secret_key'=> '',  //SecretKey
+            'bucket'    => '',  //Bucket名字
+            'notify_url'=> '',  //持久化处理回调地址
+            'access'    => 'public'  //空间访问控制 public 或 private
+        ],
+
+
 
     ],
 

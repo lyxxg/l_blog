@@ -16,7 +16,6 @@ $admin->display_name = '后台管理员'; // optional
 $admin->description  = '具备后台管理的权限'; // optional
 $admin->save();
 
-//还需要什么权限吗。。。无语  就我一个管理员  就来个赋值权限得了
 
 $role1 = new \App\Models\Role();
 $role1->name = "user";
@@ -34,7 +33,10 @@ $user = \App\Models\User::create([
 $userinfo = \App\Models\UserInfo::create([
 'user_id'=>$user->id,
 'nick'=>"未来笔记",
-'description'=>'我是全世界最菜的php程序员'
+'description'=>'我是全世界最菜的php程序员',
+'avatar'=>'defaultico/default.png',
+'savatar'=>'defaultico/default.png'
+
 ]);
 
 //把该用户添加到admin用户组
@@ -63,13 +65,17 @@ $manageQuestion->save();
 $user = \App\Models\User::create([
 'name'=>'baidu',
 'password'=>bcrypt('123456'),
-'email'=>'654321@qq.com'
+'email'=>'654321@qq.com',
+
 ]);
 
 $userinfo = \App\Models\UserInfo::create([
 'user_id'=>$user->id,
 'nick'=>'百度',
-'description'=>'我是全世界最牛的php程序员'
+'description'=>'我是全世界最牛的php程序员',
+'avatar'=>'defaultico/default.png',
+'savatar'=>'defaultico/default.png'
+
 ]);
 
 

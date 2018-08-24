@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Facades\BlogFacade;
 use App\Http\Requests\Blog\PassUpdate;
 use App\Http\Requests\Blog\UserUpdate;
 use App\Models\Notice;
@@ -11,8 +12,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Mockery\Generator\StringManipulation\Pass\Pass;
 use function Sodium\compare;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class UserController extends Controller
 {
@@ -88,12 +91,12 @@ class UserController extends Controller
     $sex=$request->sex;
     $description=$request->desc;
 
-     UserInfo::where('user_id',$user_id)
-     ->update(['sex'=>$sex,'nick'=>$request->nick,'description'=>$description]);
+    UserInfo::where('user_id',$user_id)
+    ->update(['sex'=>$sex,'nick'=>$request->nick,'description'=>$description]);
 
     if(!empty($request->file('avatar'))) {//如果头像不为空
-        UserInfo::where('user_id',$user_id)
-        ->update(['avatar'=>$request->file('avatar')->store('avatar')]);
+    UserInfo::where('user_id',$user_id)
+    ->update(['avatar'=>$request->file('avatar')->store('avatar')]);
     }
 
     return redirect()-> route('user.show',$user_id);
@@ -133,8 +136,8 @@ class UserController extends Controller
 
 
     //处理密码
-    public  function passtore(PassUpdate $request){
-
+    public  function passtore(PassUpdate $request)
+    {
     $user=Auth::user();
     if(!Hash::check($request->old_password,$user->password)){
         return back()->withErrors('原密码错误');
@@ -148,6 +151,36 @@ class UserController extends Controller
 
 
 
+    public function avatarup(Request $request)
+    {
+
+
+    $user_id=Auth::id();
+    $name=md5(rand(1,99999)).'.png';//图片文件名
+    $sname='s'.$name;
+    $path=date('m/d');
+    $path='avatar/'.$path;
+    $spath=$path.'/'.$sname;
+    $result= UserInfo::where('user_id',$user_id)
+    ->update(['avatar'=>$imgurl=$request->file('savatar')->storeAs($path,$name),'savatar'=>$spath]);
+
+    if($result){//保存略缩图
+    $img=Image::make($request->file('savatar'))->resize(60,60);
+    $re=$img->save('storage/'.$spath);
+    }
+    \Redis::del("user_".$user_id);
+
+    //返回头像和略缩头像地址
+    $avatar=[
+        'avatar'=>Storage::url($imgurl),
+        'savatar'=>$spath
+    ];
+
+    $dataArr=BlogFacade::getJson();
+    $dataArr['data']=$avatar;
+    return json_encode($dataArr);
+
+    }
 
 
 

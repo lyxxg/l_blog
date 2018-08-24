@@ -19,30 +19,30 @@ Auth::routes();             //用户认证
 
 Route::resource("test","Test\TestController");
 
-//前台
-Route::group(['namespace'=>'Blog'],function () {
+//前台  count中间键统计站内请求
+Route::group(['namespace'=>'Blog','middleware'=>'count'],function () {
 
-    //收藏
+    //文章收藏
     Route::resource("collect","CollectController");
 
     //历史文章
     Route::resource("history","HistoryController");
 
 
+    //文章搜索
     Route::post("search","SearchController@search")
         ->name("search");
 
-    //文章 主页
+    //文章主页
     Route::resource('/', 'IndexController');
-    Route::get('articleshow/{id}', 'IndexController@show');
-    Route::post('/store', "IndexController@store");
+    Route::get('articleshow/{id}', 'IndexController@show')->name("articleshow");  //文章展示
+    Route::post('/store', "IndexController@store");  //文章存储
 
     //标签
     Route::resource("tag", "TagController");
 
     //editor.md图片上传
     Route::post('/uploadimage', "IndexController@imageupload");
-
 
     //答案
     Route::resource("answer","AnswerController")->middleware(['auth']);;
@@ -54,6 +54,9 @@ Route::group(['namespace'=>'Blog'],function () {
     Route::post("comment","CommentController@comment")->name("comment");
 
 
+
+    //用户头像上传
+    Route::post("avatarup","UserController@avatarup")->name("avatarup");
 
     //用户个人中心
     Route::resource("user","UserController");
@@ -77,9 +80,51 @@ Route::group(['namespace'=>'Blog'],function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 //后台
-Route::group(['prefix'=>'admin','namespace'=>'Admin','as'=>'admin.','middleware'=>["auth"]],function () {
+Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>["auth"]],function () {
 
-    Route::resource("/","IndexController");
+    Route::get("/","IndexController@index")->name("主页");
+
+    //文章主页
+    Route::get("article","ArticleController@list")->name("文章");
+
+    //文章撤销
+    Route::post("articledel/{id}","ArticleController@articledel");
+
+    //文章回收
+    Route::get("revlist","ArticleController@revlist")->name("恢复文章");
+
+    //文章回收数据处理
+    Route::post("recover/{id}","ArticleController@recover");
+
+    //标签分类
+    Route::get("tagtype","TagTypeController@list")->name("标签分类");
+
+
+    //添加标签分类view
+    Route::get("typeview",function (){
+        return view("Admin.TagType.add");
+    })->name("添加分类标签");
+
+    //添加标签分类
+    Route::post("typeadd","TagTypeController@add");
+
+    //编辑标签分类的数据处理
+    Route::post("typedit","TagTypeController@edit");
+
+
+
+
+    //标签
+    Route::get("tag","TagController@list");
+
+    //添加标签view
+    Route::get("tagview",function (){
+        return view("Admin.Tag.add");
+    });
+
+    //标签添加
+    Route::post("tagadd","TagController@add");
+
 
 
 });

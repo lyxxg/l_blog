@@ -110,6 +110,7 @@ public function register(Request $request)
         return UserInfo::create([
             'user_id'=>$user_id,
             'avatar'=>'defaultico/default.png',
+            'savatar'=>'defaultico/default.png',
             'nick'=>'哈哈哈',
             'coins'=>60,
             'descript'=>'这个人很帅，暂时找不到词语形容自己',

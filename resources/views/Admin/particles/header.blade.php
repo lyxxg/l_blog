@@ -30,7 +30,7 @@
                                 <li><!-- start message -->
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="{{Storage::url(Blog::getUserInfo()->avatar)}}" class="img-circle" alt="管理员账号">
+                                            <img src="{{Storage::url(Blog::getUserInfo()->savatar)}}" class="img-circle" alt="管理员账号">
                                         </div>
                                         <h4>
                                             Support Team
@@ -43,7 +43,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="{{Storage::url(Blog::getUserInfo()->avatar)}}" class="img-circle" alt="User Image">
+                                            <img src="{{Storage::url(Blog::getUserInfo()->savatar)}}" class="img-circle" alt="User Image">
                                         </div>
                                         <h4>
                                             AdminLTE Design Team
@@ -55,7 +55,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="{{Storage::url(Blog::getUserInfo()->avatar)}}" class="img-circle" alt="User Image">
+                                            <img src="{{Storage::url(Blog::getUserInfo()->savatar)}}" class="img-circle" alt="User Image">
                                         </div>
                                         <h4>
                                             Developers
@@ -67,7 +67,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="{{Storage::url(Blog::getUserInfo()->avatar)}}" class="img-circle" alt="User Image">
+                                            <img src="{{Storage::url(Blog::getUserInfo()->savatar)}}" class="img-circle" alt="User Image">
                                         </div>
                                         <h4>
                                             Sales Department
@@ -79,7 +79,7 @@
                                 <li>
                                     <a href="#">
                                         <div class="pull-left">
-                                            <img src="{{Storage::url(Blog::getUserInfo()->avatar)}}" class="img-circle" alt="User Image">
+                                            <img src="{{Storage::url(Blog::getUserInfo()->savatar)}}" class="img-circle" alt="User Image">
                                         </div>
                                         <h4>
                                             Reviewers
@@ -216,13 +216,13 @@
                 <!-- User Account: style can be found in dropdown.less -->
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{Storage::url(Blog::getUserInfo()->avatar)}}" class="user-image" alt="User Image">
+                        <img src="{{Storage::url(Blog::getUserInfo()->savatar)}}" class="user-image" alt="User Image">
                         <span class="hidden-xs">{{Storage::url(Blog::getUserInfo()->nick)}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
                         <li class="user-header">
-                            <img src="{{Storage::url(Blog::getUserInfo()->avatar)}}" class="img-circle" alt="User Image">
+                            <img src="{{Storage::url(Blog::getUserInfo()->savatar)}}" class="img-circle" alt="User Image">
 
                             <p>
                                 Alexander Pierce - Web Developer

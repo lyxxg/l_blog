@@ -4,6 +4,7 @@ namespace App\Services;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class BlogService
 {
@@ -104,8 +105,8 @@ class BlogService
     }
 
 
-    public $userinfo;
-        //获取用户个人资料
+    public $userinfo;        //获取用户个人资料
+
     public function getUserInfo($id=''){
 
     if(empty($id)){//此时再去数据库查询当前登录的id
@@ -120,12 +121,15 @@ class BlogService
     $userinfo=json_decode($userinfo);
     if(empty($userinfo)){//如果redis没有获取到这个用户的信息
 
-       $userinfo=User::find($id)->info()->select('nick','coins','sex','avatar','user_id')->get();
-        \Redis::set($user_key,$userinfo);
+       $userinfo=User::find($id)->info()->select('nick','coins','sex','savatar','user_id')->get();
+       \Redis::set($user_key,$userinfo);
+    }
+    return $userinfo[0];
     }
 
-    return $userinfo[0];
-}
+
+
+    //统计站内情况
 
 
 
@@ -139,6 +143,79 @@ class BlogService
     return false;
 
     }
+
+
+
+
+    //判断是否是手机
+    public  function is_mobile(){
+        $agent=strtolower($_SERVER['HTTP_USER_AGENT']);
+        return (strpos($agent,'iphone')||strpos($agent,'android')||strpos($agent,'ipad'));
+    }
+
+
+    //判断用户浏览器
+    public function getBrowser(){
+        $flag=$_SERVER['HTTP_USER_AGENT'];
+        $para=array();
+
+        // 检查操作系统
+        if(preg_match('/Windows[\d\. \w]*/',$flag, $match)) $para['os']=$match[0];
+
+        if(preg_match('/Chrome\/[\d\.\w]*/',$flag, $match)){
+            // 检查Chrome
+            $para['browser']=$match[0];
+
+        }elseif(preg_match('/Safari\/[\d\.\w]*/',$flag, $match)){
+            // 检查Safari
+            $para['browser']=$match[0];
+        }elseif(preg_match('/MSIE [\d\.\w]*/',$flag, $match)){
+            // IE
+            $para['browser']=$match[0];
+        }elseif(preg_match('/Opera\/[\d\.\w]*/',$flag, $match)){
+            // Opera
+            $para['browser']=$match[0];
+        }elseif(preg_match('/Firefox\/[\d\.\w]*/',$flag, $match)){
+            // Firefox
+            $para['browser']=$match[0];
+        }elseif(preg_match('/OmniWeb\/(v*)([^\s|;]+)/i',$flag, $match)){
+            //OmniWeb
+            $para['browser']=$match[2];
+        }elseif(preg_match('/Netscape([\d]*)\/([^\s]+)/i',$flag, $match)){
+            //Netscape
+            $para['browser']=$match[2];
+        }elseif(preg_match('/Lynx\/([^\s]+)/i',$flag, $match)){
+            //Lynx
+            $para['browser']=$match[1];
+        }elseif(preg_match('/360SE/i',$flag, $match)){
+            //360SE
+            $para['browser']='360';
+        }elseif(preg_match('/SE 2.x/i',$flag, $match)) {
+            //搜狗
+            $para['browser']='Sougou';
+        }else{
+            $para['browser']='Unknown';
+        }
+        return $para['browser'];
+        }
+
+        //返回getBrowser出现的浏览器
+        /*
+         * if($b == 'Chrome' || $b== 'Safari' || $b=='IE' || $b == 'Opera' ||
+          $b == 'FireFox' || $b == 'OmniWeb' || $b == 'Netscape'||
+          $b == 'Lynx' || $b == '360' || 'Sougou' || 'Unknown')
+
+         */
+        public function AllBrowser()
+        {
+            $arr=[
+              'Chrome','Safari','IE','Opera',
+               'FireFox','OmniWeb','Netscape',
+               'Lynx','360','Sougou','Unknown'
+            ];
+            return $arr;
+        }
+
 
 
 }

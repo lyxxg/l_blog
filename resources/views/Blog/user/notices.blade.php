@@ -9,7 +9,7 @@
 
          <div class="notices blog-mtop">
                  <blockquote class="layui-elem-quote layui-quote-nm">
-                     <span><img src="{{Storage::url(Blog::getUserInfo($notice->object_user_id)->avatar)}}" class="layui-nav-img"></span>
+                     <span><img src="{{Storage::url(Blog::getUserInfo($notice->object_user_id)->savatar)}}" class="layui-nav-img"></span>
                      <span>{{Blog::getUserInfo($notice->object_user_id)->nick}}</span>
                      <em>
                          @if($notice->action=='answer')

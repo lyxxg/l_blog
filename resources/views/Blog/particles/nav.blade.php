@@ -30,7 +30,7 @@
 
             {{--已登录--}}
             @if (!Auth::guest())
-            <a href=""><img src="{{Storage::url(Blog::getUserInfo()->avatar)}}" class="layui-nav-img">{{Blog::getUserInfo()->nick}}</a>
+            <a href=""><img src="{{ Storage::url(Blog::getUserInfo()->savatar) }}" class="layui-nav-img" id="savatar">{{Blog::getUserInfo()->nick}}</a>
             <dl class="layui-nav-child">
                 <dd><a href="{{route('user.show',Auth::User()->id)}}">个人中心</a></dd>
                 <dd><a href="{{ route('logout') }}"
@@ -43,7 +43,7 @@
                 </form>
 
              @else
-                <a href=""><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img">我</a>
+                <a href=""><img src="{{asset('blog/img/avatar.jpg')}}" class="layui-nav-img" id="savatar">我</a>
                 <dl class="layui-nav-child">
                     <dd><a href="{{route('login')}}">登录</a></dd>
                     <dd><a href="{{route('register')}}">注册</a></dd>

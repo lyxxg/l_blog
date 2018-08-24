@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Test;
 
+use App\Facades\BlogFacade;
 use App\Models\Collection;
+use App\Models\Count;
 use  Blog;
 use App\Events\DXEvent;
 use App\Services\TokenManageService;
@@ -20,6 +22,66 @@ class TestController extends Controller
     public function index(Request $request)
     {
 
+
+        $i = rand(12, 666);
+        while ($i < 666){
+        echo "x";
+             }
+
+             dd("q");
+
+
+
+       $res=BlogFacade::AllBrowser();
+       if(in_array('google',$res)){
+           dd("x");
+       }
+       dd($res);
+        $ips=Count::Select('ip')->get();
+        foreach ($ips as $ip) {
+            echo $ip->ip.request()->ip();
+
+            if ($ip->ip == request()->ip())
+            {
+                  dd("q");}
+
+        }
+        dd("x");
+
+            //            dd(var_dump($request->ip()));
+//            dd(var_dump($ip->ip));
+
+            echo $ip->ip;
+        dd("s");
+        $a=5;
+        if($a==(1 || 2 || 4)    ){
+            dd("s");
+        }
+        dd("x");
+
+
+        $res= "Chrome/68.0.3440.75";
+        if( preg_match('#(.+)/#',$res, $match)){
+        dd($match[1]);
+        }
+dd("x");
+       $count=new \App\Models\Count();
+        $ip=request()->ip();
+        $res=$count->where('ip',$ip)->first();
+        if(empty($res)) {
+            $count->ip = $ip;
+            $count->is_mobile = 1;
+            $count->save();
+        }else{
+            dd("q");
+        }
+
+        $browser=BlogFacade::is_mobile();
+        dd($browser);
+        $a=array(
+           1 =>'hello',
+        );
+        echo $a[1];
 
 return view("test.index");
         dd("s");

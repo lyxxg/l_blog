@@ -9,23 +9,25 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Dashboard
+                {{ request()->route()->getName() }}
                 <small>Control panel</small>
             </h1>
             <ol class="breadcrumb">
-                <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-                <li class="active">Dashboard</li>
+                <li><a href="{{ route('主页') }}"><i class="fa fa-dashboard"></i>主页</a></li>
+                <li class="active"><a href="javascript:void">{{ request()->route()->getName() }}</a></li>
             </ol>
         </section>
+        @section("content")
+
         <section class="content">
             {{--内容区域--}}
-            @section("content")
 
 
 
-            @stop
 
         </section>
+        @show
+
     </div>
 
 @include("Admin.particles.footer")
