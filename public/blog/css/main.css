@@ -46,9 +46,17 @@
 
 /*moblie style*/
 @media (max-width: 480px){
+    /* 页脚也是layui-nav
     .navbar .layui-nav li{
         clear: both;
         display: none;
+    }
+    */
+    #blog_nav
+    {
+        clear: both;
+        display: none;
+
     }
     .to-mune{
         display: block;
