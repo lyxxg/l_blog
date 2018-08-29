@@ -22,16 +22,20 @@
             <tr>
                 <td>{{ $tag->id }}</td>
                 <td>{{ $tag->name }}</td>
-                <td><img src="{{ Storage::url($tag->ico)  }}"></td>
+                <td><img src="{{ Storage::url($tag->ico)  }}" class="img-circle img-bordered-sm img-sm"></td>
                 <td>{{ $tag->hot }}</td>
                 <td>{{ $tag->tagtype->type_name }}</td>
                 <td>
-                    <form onsubmit="return confirm('删除标签分类是极致危险的操作 所拥有的标签 文章将全部被删除 需要管理员邮箱同意才可删除 确定发送邮箱?')" action="" method="post" id="delete_sub">
-                        {{csrf_field()}}
-                    </form>
+
+
 
                     <div  class="btn-group">
+
+                        <a href="{{ url('admin/tageditview',$tag->id) }}" class="btn btn-del btn-info">编辑</a>
                         <a class="btn btn-del btn-danger">删除</a>
+                        <form onsubmit="return confirm('删除标签分类是极致危险的操作 所拥有的标签 文章将全部被删除 需要管理员邮箱同意才可删除 确定发送邮箱?')" action="" method="post" id="delete_sub">
+                            {{csrf_field()}}
+                        </form>
 
                     </div>
                 </td>
@@ -41,4 +45,4 @@
         </tbody>
     </table>
 @endsection
-
+@include("Admin.particles.deljs")

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Facades\BlogFacade;
+use App\Models\Announcement;
 use App\Models\Article;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -65,4 +66,11 @@ class IndexController extends Controller
         //dd($mobile);
         return view("Admin.index",compact('UserCount','ArticleCount','IpCount','AllBrowser','mobile'));
     }
+
+    //公告修改
+    public function announcement()
+    {
+        Announcement::
+    }
+
 }

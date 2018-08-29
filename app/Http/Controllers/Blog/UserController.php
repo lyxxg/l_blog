@@ -156,24 +156,20 @@ class UserController extends Controller
 
 
     $user_id=Auth::id();
-    $name=md5(rand(1,99999)).'.png';//图片文件名
-    $sname='s'.$name;
-    $path=date('m/d');
-    $path='avatar/'.$path;
-    $spath=$path.'/'.$sname;
+    $path=BlogFacade::getImgName();
     $result= UserInfo::where('user_id',$user_id)
-    ->update(['avatar'=>$imgurl=$request->file('savatar')->storeAs($path,$name),'savatar'=>$spath]);
+    ->update(['avatar'=>$imgurl=$request->file('savatar')->storeAs($path['imgpath'],$path['name']),'savatar'=>$path['simg']]);
 
     if($result){//保存略缩图
     $img=Image::make($request->file('savatar'))->resize(60,60);
-    $re=$img->save('storage/'.$spath);
+    $re=$img->save('storage/'.$path['simg']);
     }
     \Redis::del("user_".$user_id);
 
     //返回头像和略缩头像地址
     $avatar=[
         'avatar'=>Storage::url($imgurl),
-        'savatar'=>$spath
+        'savatar'=>$path['simg']//
     ];
 
     $dataArr=BlogFacade::getJson();

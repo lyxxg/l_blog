@@ -13,6 +13,7 @@
 
 
 
+//如果要开发 请看waring.bug
 
 Auth::routes();             //用户认证
 
@@ -71,6 +72,11 @@ Route::group(['namespace'=>'Blog','middleware'=>'count'],function () {
     //处理修改密码
     Route::post("passtore","UserController@passtore")->name('passtore');
 
+    //聊天室
+    Route::get("chat",function (){
+    return  view("Blog.chat.index");
+    });
+
 });
 
 
@@ -125,6 +131,23 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>["auth"]],fun
     //标签添加
     Route::post("tagadd","TagController@add");
 
+    //编辑标签view
+    Route::get("tageditview/{id}","TagController@editview")->name('编辑标签');
 
+    Route::post("tagedit","TagController@edit");
+
+    //用户列表
+    Route::get("user","UserController@list");
+
+    //小黑屋
+    Route::post("bannedadd/{id}","UserController@bannedadd");
+    Route::post("bannedel/{id}","UserController@bannedel");
+
+    //轮播图 修改
+    Route::get("focusview","FocusController@edit");
+
+    Route::post("focus","FocusController@update");
+
+        //Route::get("role0")
 
 });

@@ -29,5 +29,6 @@ $factory->define(\App\Models\Article::class,function (\Faker\Generator $faker){
         'title'=>"title".str_random(20),
         'content'=>"content".str_random(500),
         'user_id'=>1
+
     ];
 });

@@ -3,7 +3,7 @@
 
     <div class="container">
         <div class="col-md-8">
-        <form role="form" action="{{ url('admin/tagadd') }}" method="post">
+        <form role="form" action="{{ url('admin/tagadd') }}" method="post" enctype="multipart/form-data">
        @csrf
         <div class="form-group">
             <label for="name">名称</label>

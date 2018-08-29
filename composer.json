@@ -12,6 +12,7 @@
         "laravel/framework": "5.6.*",
         "laravel/tinker": "^1.0",
         "predis/predis": "*",
+        "swooletw/laravel-swoole": "^2.4",
         "zgldh/qiniu-laravel-storage": "^0.9.2",
         "zizaco/entrust": "5.2.x-dev"
     },

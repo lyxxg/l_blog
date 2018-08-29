@@ -76,4 +76,5 @@
     </div>
     <div class="lay"></div>
     {{$articles->links()}}
+
 @endsection("content")

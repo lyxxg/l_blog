@@ -15,6 +15,7 @@ class CreateFocusTable extends Migration
     {
         Schema::create('focus', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('sico')->comment("略缩图片");
             $table->string('ico')->comment("图片地址");
             $table->string('title')->comment("标题");
             $table->string('href')->comment("焦点图片链接");

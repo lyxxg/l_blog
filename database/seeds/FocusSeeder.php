@@ -11,9 +11,10 @@ class FocusSeeder extends Seeder
      */
     public function run()
     {
-        for($i=1;$i<=6;$i++) {
+        for($i=1;$i<=4;$i++) {
             \Illuminate\Support\Facades\DB::table("focus")->insert([
-           'ico'=>'futrue/qm/0'.$i.'.jpg',
+           'sico'=>'futrue/qm/0'.$i.'.jpg',
+            'ico'=>'futrue/qm/0'.$i.'.jpg',
             'title'=>'title'.$i,
             'href'=>'#'.$i
 

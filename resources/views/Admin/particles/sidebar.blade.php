@@ -57,16 +57,15 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ url('admin/tagtype') }}"><i class="fa fa-circle-o"></i> 标签分类管理 </a></li>
 
-                    <li><a href=""><i class="fa fa-circle-o"></i> 标签分类添加 </a></li>
 
-
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 标签添加 </a></li>
-
-                    <li><a href="#"><i class="fa fa-circle-o"></i> 标签分类添加 </a></li>
+                    <li><a href="{{ url('admin/tag') }}"><i class="fa fa-circle-o"></i> 标签管理 </a></li>
                 </ul>
             </li>
 
-            <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
+            <li><a href="{{ url('admin/focusview') }}"><i class="fa fa-book"></i> <span>轮播图</span></a></li>
+
+            <li><a href="{{ url('admin/announcement') }}"><i class="fa fa-book"></i> <span>公告</span></a></li>
+
             <li class="header">用户管理</li>
             <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span> 用户 </span></a></li>
             <li class="treeview">

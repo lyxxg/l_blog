@@ -1,0 +1,18 @@
+开始目录一般是以blog开头
+
+Blog:: Blog::Factory Blog::Service开头都是调用app/Services/BlogService的方法
+
+app\Providers\BlogServiceProvider.php视图数据共享
+
+
+
+.env配置了顶象appid和appsecret
+例如:
+DXAppId=顶象appid
+DXAppSecret=顶象secret
+
+
+执行php artisan migrate的时候记住把视图数据共享的代码注释
+否则无法迁移成功  迁移完成取消注释 !!!
+
+

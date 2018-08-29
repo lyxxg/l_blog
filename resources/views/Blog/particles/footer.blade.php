@@ -17,6 +17,10 @@
             <a href="">反馈<span class="layui-badge-dot"></span></a>
         </li>
 
+        <li class="layui-nav-item">
+            <a href="">聊天室<span class="layui-badge-dot"></span></a>
+        </li>
+
 
     </ul>
 </div>

@@ -167,7 +167,9 @@ return [
         App\Providers\PaginationServiceProvider::class,
         App\Providers\BlogServiceProvider::class,
         App\Providers\RulesServiceProvider::class,
-    ],
+        SwooleTW\Http\LaravelServiceProvider::class,
+
+        ],
 
     /*
     |--------------------------------------------------------------------------

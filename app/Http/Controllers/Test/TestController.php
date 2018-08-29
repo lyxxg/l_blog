@@ -23,6 +23,9 @@ class TestController extends Controller
     {
 
 
+
+        dd(BlogFacade::getImgName());
+
         $i = rand(12, 666);
         while ($i < 666){
         echo "x";

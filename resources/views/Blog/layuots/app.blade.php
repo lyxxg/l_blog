@@ -61,15 +61,13 @@
         <!---footer-->
 
         @include("Blog.particles.footer")
-<script>
-    //focus config
-    layui.use('carousel', function(){
-        var carousel = layui.carousel;
-        carousel.render({
-            elem: '#focus'
-            ,width: '100%' //设置容器宽度
-            ,height:'100%'
-            ,arrow: 'always' //始终显示箭头
-        });
-    });
-</script>
+        <script>
+            //focus config
+            layui.use('carousel', function(){
+                var carousel = layui.carousel;
+                carousel.render({
+                    elem: '#focus',
+                    width: '100%' //设置容器宽度
+                });
+            });
+        </script>
