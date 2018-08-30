@@ -9,7 +9,10 @@
 .box-min{
     min-height: 555px;
 }
-
+#showMD
+{
+    word-break: break-all;
+}
 #focus>div{
     display: block;
     height: 300px;
@@ -52,7 +55,7 @@
         display: none;
     }
     */
-    #blog_nav
+    #blog_nav li
     {
         clear: both;
         display: none;

@@ -248,4 +248,22 @@ class BlogService
 
 
 
+
+
+    //聊天室的Token
+
+    public function getToken()
+    {
+    $user_id =$this->getUserInfo()->user_id;
+    $token = $user_id.':'.str_random(4);
+    $u_token =encrypt($token);      //加密后的token
+    return [
+        'u_token'=>$u_token,
+        'token'=>$token
+        ];
+
+    }
+
+
+
 }

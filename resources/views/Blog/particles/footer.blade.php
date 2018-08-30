@@ -18,7 +18,7 @@
         </li>
 
         <li class="layui-nav-item">
-            <a href="">聊天室<span class="layui-badge-dot"></span></a>
+            <a href="{{ url('chat') }}">聊天室<span class="layui-badge-dot"></span></a>
         </li>
 
 

@@ -72,10 +72,8 @@ Route::group(['namespace'=>'Blog','middleware'=>'count'],function () {
     //处理修改密码
     Route::post("passtore","UserController@passtore")->name('passtore');
 
-    //聊天室
-    Route::get("chat",function (){
-    return  view("Blog.chat.index");
-    });
+    Route::get("schat","ChatController@index");
+
 
 });
 

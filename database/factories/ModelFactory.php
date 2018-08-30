@@ -27,7 +27,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(\App\Models\Article::class,function (\Faker\Generator $faker){
     return [
         'title'=>"title".str_random(20),
-        'content'=>"content".str_random(500),
+        'content'=>"测试内容 hello word",
         'user_id'=>1
 
     ];

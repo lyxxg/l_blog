@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Facades\BlogFacade;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\Auth;
 
 class Count extends Command
 {
@@ -38,6 +39,9 @@ class Count extends Command
      */
     public function handle()
     {
+
+     //   $user=BlogFacade::getUserInfo();
+        var_dump($user);
         //清除统计
         \Redis::del('ip');
         \Redis::del('count');

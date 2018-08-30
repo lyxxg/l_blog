@@ -1,7 +1,7 @@
 <div class="navbar">
 
 
-    <ul class="layui-nav layui-bg-blue blog_nav">
+    <ul class="layui-nav layui-bg-blue blog_nav" id="blog_nav">
         <label for="to-mune" class="to-mune">菜单</label>
 
         <input type="checkbox" class="to-mune " id="to-mune" style="display: none">

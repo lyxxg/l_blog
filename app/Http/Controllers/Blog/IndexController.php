@@ -38,7 +38,7 @@ class IndexController extends Controller
         $focus = \Redis::get('focus');
 
         if(empty($focus)){
-            $focus = Focu::all();
+            $focus = Focu::select('sico','href','title')->get();
             \Redis::set("focus",$focus);
             }
         $focus=json_decode($focus);
