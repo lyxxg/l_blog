@@ -17,7 +17,7 @@ class ChatController extends Controller
 
     //2是游客
     if( $user_id == 2 )
-    $token='helloword';
+    $u_token='helloword';
 
     //得到用户token
     else
@@ -25,11 +25,9 @@ class ChatController extends Controller
 
     $token_data=BlogFacade::getToken();
     $u_token=$token_data['u_token'];
-
-    \Redis::zadd('token',$user_id,$token_data['token']);
+    \Redis::set('token_'.$user_id,$token_data['token']);
+    //\Redis::zadd('token',$user_id,$token_data['token']);
  //   \App\Models\ChatToken::create(['user_id' => $user_id, 'token' => $token]);
-
-
     }
     return view("Blog.chat.index",compact('u_token'));
 

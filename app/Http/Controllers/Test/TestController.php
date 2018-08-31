@@ -28,7 +28,17 @@ class TestController extends Controller
 //    /resource/views/test和这个控制器用来测试的
     public function index(Request $request)
     {
+        $a=null;
+        if(!empty($a))
+            dd("q");
+        dd("x");
 
+        $user_id=1;
+        if(!$a=$user_id==false)
+            dd("x");
+dd("ok");
+        return;
+        return view("test.index");
 
         $w=encrypt("qweqew:1");
         $a="eyJpdiI6IjkxVXg1ajhxbWR2NjZ2M0pCWms4a0E9PSIsInZhbHVlIjoiK2M0UWpyVkszQkNcL3IzcDE3Zitoa1E9PSIsIm1hYyI6ImQ0MjExZGQzZGMxOWNiNDE2MzYyM2NkOTJjYmU1NzJmNDM2ZmM4ZDZlMDU3MDFhMGJiMWI2ZTM1NDZhNzJjNDEifQ==";

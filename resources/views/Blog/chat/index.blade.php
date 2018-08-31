@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('chat/css/chat.css') }}">
 </head>
 <body>
-<div class="chat-name">未来笔记-网页聊天室{{ $u_token }}</div>
+<div class="chat-name">未来笔记-网页聊天室<p id="token">{{ $u_token }}</p></div>
 <div class="chat-box">
     <div class="show-box">
         <div class="msg-box">
@@ -29,11 +29,12 @@
         <p><img src="{{ asset('chat/img/sendimg.png') }}" class="send-img" title="ctrl+o快捷打开"><button class="send-btn">发送信息(Ctrl+Enter)</button></p>
 
     </div>
-</div>
+    </div>
 
 <script>
     //用户token 每次发送消息token都会重新生成  所以token只能用一次 别想搞事情
     var token='{{ $u_token }}';
+    localStorage.setItem('chat_token',token);//缓存h5本地
 </script>
 <script src="{{ asset('chat/js/jquery.min.js') }}"></script>
 <script src="{{ asset('chat/js/chat.js') }}"></script>

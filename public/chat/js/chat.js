@@ -19,9 +19,13 @@ webSocket.onopen = function (event) {
 
 
     webSocket.onmessage = function (event) {
-        alert("q");
+
         data=JSON.parse(event.data);
-        alert(data.data.data);
+        if(data.token!=null)
+        {
+        localStorage.setItem('chat_token',data.token);
+        return false;
+        }
         var content = document.getElementById('nickname');
         nickname=data.data.nick;
       console.log(data);
@@ -60,10 +64,10 @@ function sendMsg(msg){
     var data=new Array(2);
 
     nickname=HtmlUtil.htmlEncodeByRegExp(nickname);
-    msg=HtmlUtil.htmlEncodeByRegExp(msg);
+    msg=HtmlUtil.htmlEncodeByRegExp(msg);//xxs过滤
 
-    data[0]=msg;
-    data[1]=token;
+    data[0]=localStorage.getItem('chat_token');
+    data[1]=msg;
     webSocket.send(data);
 
 }
@@ -145,8 +149,9 @@ function sendImg(msg) {
     avatar=getBase64Image(avatar);//当前用户头像
     var data=new Array(3);
     nickname=HtmlUtil.htmlEncodeByRegExp(nickname);
-    data[0]=msg;
-    data[1]=token;
+    data[0]=localStorage.getItem('chat_token');;
+    data[1]=msg;
+    console.log(msg);
     webSocket.send(data);
 
 }
