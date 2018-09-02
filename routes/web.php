@@ -146,6 +146,7 @@ Route::group(['prefix'=>'admin','namespace'=>'Admin','middleware'=>["auth"]],fun
 
     Route::post("focus","FocusController@update");
 
+
         //Route::get("role0")
 
 });

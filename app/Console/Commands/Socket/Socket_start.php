@@ -3,6 +3,7 @@
 namespace App\Console\Commands\Socket;
 
 use App\Facades\BlogFacade;
+use App\Jobs\ChatSave;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
@@ -89,11 +90,15 @@ class Socket_start extends Command
     return;
 
     $msg=$u_data[1];//用户发送过来的消息
-    if($msg=='data:image/png;base64')//发送过来的是图片
+    $is_img=substr($msg,'0','10');
+    if($is_img='data:image')//发送过来的是图片
     {
     $base64 = str_replace($u_data[0].',', '',$request->data);
     $base64=substr($base64, 0, -1);
     $msg=$base64;
+    if(strlen($msg)>64*1024)
+    return;
+
     }
 
     $currUser=BlogFacade::getUserInfo($user_id);//用户信息
@@ -103,11 +108,12 @@ class Socket_start extends Command
     \Redis::set('token_'.$user_id,$token);//重新设置token
 
     $arr=[
+      'user_id'=>$user_id,
       'nick'=>$currUser->nick,
       'savatar'=>$currUser->savatar,
       'data'=>$msg,
       ];
-
+    ChatSave::dispatch($arr);//保存进mysql
 
     $data=array();
     $data=BlogFacade::getJson();
@@ -122,6 +128,7 @@ class Socket_start extends Command
     foreach ($users as $user)
     $ws->push($user,$data);
 
+
     }
 
 
@@ -129,20 +136,16 @@ class Socket_start extends Command
     //验证成功返回用户id  失败返回false
     protected function token_check($token)//判断token是否正确
     {
-        if($token=='helloword')//游客token为helloword
-        return 2;
-        $token=decrypt($token); //解密token
-        $user_id=explode(':',$token)[0];//返回用户id
-        file_put_contents('1.txt',$token);
-        if($token==\Redis::get('token_'.$user_id))
-        return $user_id;
-        return false;
+    if($token=='helloword')//游客token为helloword
+    return 2;
+    $token=decrypt($token); //解密token
+    $user_id=explode(':',$token)[0];//返回用户id
+    file_put_contents('1.txt',$token);
+    if($token==\Redis::get('token_'.$user_id))
+    return $user_id;
+    return false;
     }
 
 
 
-    protected function ChatSave($arr)//保存聊天记录
-    {
-    
-    }
 }

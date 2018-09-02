@@ -10,6 +10,7 @@ var webSocket = new WebSocket("ws://127.0.01:666");
 
 
 $(function () {
+$('.show-box').scrollTop($('.show-box').scrollTop()+2000);
 
 //连接成功后
 webSocket.onopen = function (event) {
@@ -109,7 +110,7 @@ if(type==1){
 }
     $('.show-box').append(html);
 
-    $('.show-box').scrollTop($('.show-box').scrollTop()+1000);
+    $('.show-box').scrollTop($('.show-box').scrollTop()+2000);
 
 
 
@@ -149,7 +150,7 @@ function sendImg(msg) {
     avatar=getBase64Image(avatar);//当前用户头像
     var data=new Array(3);
     nickname=HtmlUtil.htmlEncodeByRegExp(nickname);
-    data[0]=localStorage.getItem('chat_token');;
+    data[0]=localStorage.getItem('chat_token');
     data[1]=msg;
     console.log(msg);
     webSocket.send(data);

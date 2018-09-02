@@ -264,6 +264,19 @@ class BlogService
 
     }
 
+    //有情况通知管理员
+    public function noticeEmail($msg='')
+    {
+    $to="449399575@qq.com";
+    $subject = '邮件名称';
+    Mail::send('emails.NoticeEmail',
+        ['content' => $msg],
+        function ($message) use($to, $subject) {
+            $message->to($to)->subject($subject);
+        }
+    );
+
+    }
 
 
 }

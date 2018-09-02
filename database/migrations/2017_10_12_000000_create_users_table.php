@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
         //   $table->unsignedInteger('notification_count')->nullble();
             $table->rememberToken();
             $table->timestamps();
+            $table->engine='Innodb';
         });
     }
 

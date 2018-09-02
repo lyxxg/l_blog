@@ -3,19 +3,29 @@
 namespace App\Http\Controllers\Test;
 
 use App\Facades\BlogFacade;
+use App\Models\Chat;
 use App\Models\Collection;
 use App\Models\Count;
 use  Blog;
 use App\Events\DXEvent;
 use App\Services\TokenManageService;
+use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
 use function PHPSTORM_META\type;
+
+
+class Test
+{
+    //这是一个类
+}
 
 class TestController extends Controller
 {
@@ -25,9 +35,55 @@ class TestController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
 //    /resource/views/test和这个控制器用来测试的
     public function index(Request $request)
     {
+
+
+dd(time());
+        DB::table('chat_01')->insert(
+            ['user_id'=>1,'nick'=>'test',
+                'savatar'=>'qwe','data'=>'qwe',
+           ]
+        );
+
+
+
+
+Log::info("qqq");
+dd("x");
+
+
+        $chat=new Chat();
+        $chat->modelTable();
+        $chat->all();
+        dd("x");
+
+        dd($this->test);
+        $table='qq'.$this->day;
+
+        dd($table);
+        dd();
+        if (!Schema::hasTable('table_name'))
+        {
+            Schema::create("test1",function (Blueprint $table){
+            $table->increments('id');
+            });
+
+        }
+
+        $message="qwe";
+        $to="449399575@qq.com";
+        $subject = '邮件名称';
+        Mail::send('emails.test',
+            ['content' => $message],
+            function ($message) use($to, $subject) {
+                $message->to($to)->subject($subject);
+            }
+        );
+
+
         $a=null;
         if(!empty($a))
             dd("q");

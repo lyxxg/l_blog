@@ -30,18 +30,17 @@ class IndexController extends Controller
     public function index()
     {
 
-
-        $articles=Article::with(['tags','user.info'])->Where('del','0')
+      $articles=Article::with(['tags','user.info'])->Where('del','0')
          ->orderBy('created_at','desc')->paginate(8);
 
-        //焦点图
-        $focus = \Redis::get('focus');
 
+        //焦点图
+      $focus = \Redis::get('focus');
         if(empty($focus)){
             $focus = Focu::select('sico','href','title')->get();
             \Redis::set("focus",$focus);
-            }
-        $focus=json_decode($focus);
+         }
+      $focus=json_decode($focus);
 
         //热门文章
         $taghots =Tag::all()->sortByDesc('hot')->take(10);
